@@ -30,4 +30,4 @@ class DbContext:
         self.host = 'localhost'
         self.user = 'root'
         self.password = ''
-        self.database = 'crud80%'
+        self.database = 'librarydb'

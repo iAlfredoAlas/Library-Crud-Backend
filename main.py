@@ -23,11 +23,11 @@ if dbConnection.success:
     repoGetResult = GenreRepository(dbConnection.connection).get_all()
     all_genres = repoGetResult.content if repoGetResult.success else []
     for genre in all_genres:
-        print(genre.getId(), genre.getName())
+        print(genre.getIdGenre(), genre.getNameGenre())
 
     #Uso de repositorio Genre Get By Id
     repoGetByIdResult = GenreRepository(dbConnection.connection).get_by_id(1)
-    print(genre.getId(), genre.getName()) if repoGetResult.success else print(repoGetResult.error_message)
+    print(repoGetByIdResult.content.getIdGenre(), repoGetByIdResult.content.getNameGenre()) if repoGetResult.success else print(repoGetResult.error_message)
 
     #Uso de repositorio Genre Insert
     genre = Genre(1,'Ejemplo1')
