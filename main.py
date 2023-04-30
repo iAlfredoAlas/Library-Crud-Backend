@@ -26,8 +26,8 @@ if dbConnection.success:
         print(genre.getIdGenre(), genre.getNameGenre())
 
     #Uso de repositorio Genre Get By Id
-    repoGetByIdResult = GenreRepository(dbConnection.connection).get_by_id(1)
-    print(repoGetByIdResult.content.getIdGenre(), repoGetByIdResult.content.getNameGenre()) if repoGetResult.success else print(repoGetResult.error_message)
+    repoGetByIdResult = GenreRepository(dbConnection.connection).get_by_id(3)
+    print(repoGetByIdResult.content.getIdGenre(), repoGetByIdResult.content.getNameGenre()) if repoGetByIdResult.content is not None and repoGetByIdResult.success else print("No encontrado "+repoGetByIdResult.error_message)
 
     #Uso de repositorio Genre Insert
     genre = Genre(1,'Ejemplo1')

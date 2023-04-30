@@ -1,10 +1,10 @@
 #Create model to Genre object
 class Genre:
     #Initial Genre object
-    def __init__(self, idGenre, nameGenre, statusGenre):
+    def __init__(self, idGenre, nameGenre, statusGenre = None):
         self.idGenre = idGenre
         self.nameGenre = nameGenre
-        self.statusGenre = statusGenre
+        self.statusGenre = statusGenre if statusGenre is not None else True
 
     #Getters and Setters to Genre
     def getIdGenre(self):
