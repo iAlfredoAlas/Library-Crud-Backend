@@ -16,6 +16,7 @@ CREATE TABLE Author (
   nameAuthor VARCHAR(40) NOT NULL,
   countryBirth VARCHAR(20) NOT NULL,
   dateBorn DATE NOT NULL,
+  statusAuthor BOOL NOT NULL,
   CONSTRAINT PK_Author PRIMARY KEY (idAuthor)
 );
 
@@ -23,12 +24,14 @@ CREATE TABLE Editorial (
   idEditorial INT AUTO_INCREMENT NOT NULL,
   nameEditorial VARCHAR(40) NOT NULL,
   dateAdd DATE NOT NULL,
+  statusEditorial BOOL NOT NULL,
   CONSTRAINT PK_Editorial PRIMARY KEY (idEditorial)
 );
 
 CREATE TABLE Genre (
   idGenre INT AUTO_INCREMENT NOT NULL,
   nameGenre VARCHAR(40) NOT NULL,
+  statusGenre BOOL NOT NULL,
   CONSTRAINT PK_Genre PRIMARY KEY (idGenre)
 );
 
@@ -36,6 +39,7 @@ CREATE TABLE Rack (
   idRack INT AUTO_INCREMENT NOT NULL,
   nameRack VARCHAR(40) NOT NULL,
   levels INT NOT NULL,
+  statusRack BOOL NOT NULL,
   CONSTRAINT PK_Rack PRIMARY KEY (idRack)
 );
 
@@ -45,6 +49,7 @@ CREATE TABLE Book (
   publicationDate DATE NOT NULL,
   totalPague INT NOT NULL,
   quantityStock INT NOT NULL,
+  statusBook BOOL NOT NULL,
   idAuthor INT NOT NULL,
   idEditorial INT NOT NULL,
   idGenre INT NOT NULL,
@@ -56,6 +61,7 @@ CREATE TABLE Employee (
   idEmployee INT AUTO_INCREMENT NOT NULL,
   nameEmployee VARCHAR(40) NOT NULL,
   employeeNumber VARCHAR(40) NOT NULL,
+  statusEmployee BOOL NOT NULL,
   CONSTRAINT PK_Employee PRIMARY KEY (idEmployee)
 );
 
@@ -65,11 +71,13 @@ CREATE TABLE User (
   carnetUser VARCHAR(10) NOT NULL,
   emailUser VARCHAR(40) NOT NULL,
   phoneUser VARCHAR(11) NOT NULL,
+  statusUser BOOL NOT NULL,
   CONSTRAINT PK_User PRIMARY KEY (idUser)
 );
 
 CREATE TABLE Reserve (
   idReservation INT AUTO_INCREMENT NOT NULL,
+  statusReservation BOOL NOT NULL,
   idBook INT NOT NULL,
   idEmployee INT NOT NULL,
   idUser INT NOT NULL,
