@@ -27,3 +27,5 @@ async def get_documentation():
 @app.get("/", include_in_schema=False)
 async def root():
     return get_swagger_ui_html(openapi_url="/openapi.json", title="Documentación")
+
+#uvicorn main:app --reload
