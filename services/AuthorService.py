@@ -17,59 +17,64 @@ class AuthorService:
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
         
-    async def get_genre_by_id(idGenre: int):
+    #Get Author by id    
+    async def getAuthorById(idAuthor: int):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
-            repo_response: RepositoryResponse = GenreRepository(dbConnection.connection).get_by_id(idGenre)
+            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).getAuthorById(idAuthor)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
-        
-    async def insert_genre(Genre: Genre):
+
+    #Insert Authors    
+    async def insertAuthor(Author: Author):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
 
-            #Validar si el genero es correcto
-            if not Genre.nameGenre.split():
+            #Validar si el autor es correcto
+            if not Author.nameAuthor.split():
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
 
-            repo_response: RepositoryResponse = GenreRepository(dbConnection.connection).insert(Genre)
+            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).insert(Author)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
-        
-    async def update_genre(idGenre: int, Genre: Genre):
+
+    #Update Authors    
+    async def updateAuthor(idAuthor: int, Author: Author):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
 
-            #Validar si el genero es correcto
-            if not Genre.nameGenre.split():
+            #Validar si el autor es correcto
+            if not Author.nameAuthor.split():
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
 
-            repo_response: RepositoryResponse = GenreRepository(dbConnection.connection).update(idGenre, Genre)
+            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).update(idAuthor, Author)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
-        
-    async def delete_genre(idGenre: int):
+
+    #Delete Author    
+    async def deleteAuthor(idAuthor: int):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
 
-            repo_response: RepositoryResponse = GenreRepository(dbConnection.connection).delete(idGenre)
+            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).delete(idAuthor)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
-        
-    async def Activate_genre(idGenre: int):
+
+    #Active Author    
+    async def activeAuthor(idAuthor: int):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
 
-            repo_response: RepositoryResponse = GenreRepository(dbConnection.connection).activate(idGenre)
+            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).activate(idAuthor)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
