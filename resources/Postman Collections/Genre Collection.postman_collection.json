@@ -11,7 +11,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/Genre?page=1&limit=10&active=True",
+					"raw": "http://127.0.0.1:8000/Genre?page=1&limit=10&actives=True",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -35,9 +35,9 @@
 							"description": "Limite de datos por pagina"
 						},
 						{
-							"key": "active",
+							"key": "actives",
 							"value": "True",
-							"description": "Muestra solo generos activos si es True, muestra todos si es es Fasle o si no se envia el parametro \"active\""
+							"description": "Muestra solo generos activos si es True, muestra todos si es es Fasle o si no se envia el parametro \"actives\""
 						}
 					]
 				}

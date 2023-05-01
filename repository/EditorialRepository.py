@@ -15,10 +15,18 @@ class EditorialRepository:
         cursor.execute("SELECT * FROM editorial LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
-        columns = [desc[0] for desc in cursor.description]
-        result = [dict(zip(columns, row)) for row in rows]
+
+        editorials = [
+            {
+                "idEditorial": editorial[0],
+                "nameEditorial": editorial[1],
+                "dateAdd": str(editorial[2]),
+                "statusEditorial": editorial[3]
+            }
+            for editorial in rows
+        ]
         
-        return RepositoryResponse(result)
+        return RepositoryResponse(editorials)
     
     def getAllActives(self, page: int = 1, limit: int = 10):
         offset = (page - 1) * limit
@@ -26,19 +34,31 @@ class EditorialRepository:
         cursor.execute("SELECT * FROM editorial WHERE statusEditorial = 1 LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
-        columns = [desc[0] for desc in cursor.description]
-        result = [dict(zip(columns, row)) for row in rows]
+
+        editorials = [
+            {
+                "idEditorial": editorial[0],
+                "nameEditorial": editorial[1],
+                "dateAdd": str(editorial[2]),
+                "statusEditorial": editorial[3]
+            }
+            for editorial in rows
+        ]
         
-        return RepositoryResponse(result)
+        return RepositoryResponse(editorials)
     
     def getById(self, idEditorial: int):
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM editorial WHERE idEditorial = %s", (idEditorial,))
         row = cursor.fetchone()
         if row:
-            column_names = [column[0] for column in cursor.description]
-            editorial_dict = dict(zip(column_names, row))
-            return RepositoryResponse(editorial_dict)
+            editorials = {
+                    "idEditorial": row[0],
+                    "nameEditorial": row[1],
+                    "dateAdd": str(row[2]),
+                    "statusEditorial": row[3]
+                }
+            return RepositoryResponse(editorials)
         else:
             return RepositoryResponse(success=False, error_message="Editorial not found")
 
