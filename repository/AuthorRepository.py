@@ -22,6 +22,18 @@ class AuthorRepository:
 
         return RepositoryResponse(result)
     
+    #Method getAllActives
+    def getAllActives(self, page: int = 1, limit: int = 10):
+        offset = (page - 1) * limit
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT * FROM author WHERE statusAuthor = 1 LIMIT %s OFFSET %s", (limit, offset))
+
+        rows = cursor.fetchall()
+        columns = [desc[0] for desc in cursor.description]
+        result = [dict(zip(columns, row)) for row in rows]
+        
+        return RepositoryResponse(result)
+    
     #Method getById Authors
     def getById(self, idAuthor: int):
         cursor = self.connection.cursor()
