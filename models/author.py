@@ -9,3 +9,4 @@ class Author(BaseModel):
     nameAuthor: str = ""
     countryBirth: str = ""
     dateBorn: str = ""
+    statusAuthor: bool = True
