@@ -12,7 +12,7 @@ class AuthorService:
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
-            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).get_all(page, limit) if not actives else AuthorRepository(dbConnection.connection).getAllActives(page, limit)
+            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).getAll(page, limit) if not actives else AuthorRepository(dbConnection.connection).getAllActives(page, limit)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
@@ -22,7 +22,7 @@ class AuthorService:
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
-            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).getAuthorById(idAuthor)
+            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).getById(idAuthor)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
@@ -35,6 +35,7 @@ class AuthorService:
 
             #Validar si el autor es correcto
             if not Author.nameAuthor.split():
+                print("hola")
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
 
             repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).insert(Author)

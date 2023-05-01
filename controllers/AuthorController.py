@@ -33,7 +33,7 @@ async def getAuthorsById(idAuthor: int):
         return JSONResponse(authorResult.error_message, status_code=400)
 
 #Controller to post new Author    
-@AuthorRoute.post("/Auhtor", tags=["Author"])
+@AuthorRoute.post("/Author", tags=["Author"])
 async def postAuthor(Author: Author):
     authorResult:RepositoryResponse = await AuthorService.insertAuthor(Author)
     

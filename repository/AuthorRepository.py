@@ -7,7 +7,7 @@ from models.repositoryResponse import RepositoryResponse
 class AuthorRepository:
 
     #initialization of the AuthorRepository
-    def __init__(self, connections):
+    def __init__(self, connection):
         self.connection = connection
     
     #Method getAll Authors
@@ -17,10 +17,18 @@ class AuthorRepository:
         cursor.execute("SELECT * FROM author LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
-        columns = [desc[0] for desc in cursor.description]
-        result = [dict(zip(columns, row)) for row in rows]
+        authors = [
+            {
+                "idAuthor": author[0],
+                "nameAuhtor": author[1],
+                "countryBirth": author[2],
+                "dateBorn": str(author[3]),
+                "statusAuthor": author[4]
+            }
+            for author in rows
+        ]
 
-        return RepositoryResponse(result)
+        return RepositoryResponse(authors)
     
     #Method getAllActives
     def getAllActives(self, page: int = 1, limit: int = 10):
@@ -40,9 +48,16 @@ class AuthorRepository:
         cursor.execute("SELECT * FROM author WHERE idAuthor = %s", (idAuthor,))
         row = cursor.fetchone()
         if row:
-            column_names = [column[0] for column in cursor.description]
-            author_dict = dict(zip(column_names, row))
-            return RepositoryResponse(author_dict)
+            authors = [
+            {
+                "idAuthor": row[0],
+                "nameAuthor": row[1],
+                "countryBirth": row[2],
+                "dateBorn": str(row[3]),
+                "statusAuthor": row[4]
+            }
+        ]
+            return RepositoryResponse(authors)
         else:
             return RepositoryResponse(success=False, error_message="Author not found")
         
@@ -55,7 +70,7 @@ class AuthorRepository:
             return RepositoryResponse(success=False, error_message="Author already exists")
         else:
             try:
-                cursor.execute("INSERT INTO author (nameAuthor, statusAuthor) VALUES (%s, %s)", (author.nameAuthor, author.statusAuthor))
+                cursor.execute("INSERT INTO author (nameAuthor, countryBirth, dateBorn) VALUES (%s, %s, %s)", (author.nameAuthor, author.countryBirth, author.dateBorn))
                 self.connection.commit()
                 return RepositoryResponse(success=True)
             except mysql.connector.Error as error:
@@ -66,7 +81,7 @@ class AuthorRepository:
         cursor = self.connection.cursor()
         try:
             # Verificar si existe un autor con el mismo nombre
-            cursor.execute("SELECT idAuthor FROM author WHERE nameAuhtor = %s AND idAuthor != %s", (author.nameAuthor, idAuthor))
+            cursor.execute("SELECT idAuthor FROM author WHERE nameAuthor = %s AND idAuthor != %s", (author.nameAuthor, idAuthor))
             result = cursor.fetchone()
             if result is not None:
                 return RepositoryResponse(success=False, error_message="A author with this name already exists")

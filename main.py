@@ -9,11 +9,13 @@ from fastapi.openapi.docs import get_swagger_ui_html
 #route a otros controladores
 from controllers.GenreController import GenreRouter as Genre
 from controllers.RackController import RackRouter as Rack
+from controllers.AuthorController import AuthorRoute as Author
 
 #Instancias y routes
 app = FastAPI()
 app.include_router(Genre)
 app.include_router(Rack)
+app.include_router(Author)
 
 #Swagger documentation
 @app.get("/openapi.json", include_in_schema=False)
