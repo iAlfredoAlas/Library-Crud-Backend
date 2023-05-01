@@ -9,7 +9,6 @@ class GenreRepository:
     def __init__(self, connection):
         self.connection = connection
 
-
     def get_all(self, page: int, limit: int):
         offset = (page - 1) * limit
         cursor = self.connection.cursor()
@@ -57,7 +56,6 @@ class GenreRepository:
             except mysql.connector.Error as error:
                 return RepositoryResponse(success=False, error_message=str(error))
 
-
     def update(self, idGenre: int, genre: Genre):
         cursor = self.connection.cursor()
         try:
@@ -71,13 +69,11 @@ class GenreRepository:
             cursor.execute("UPDATE genre SET nameGenre = %s, statusGenre = %s WHERE idGenre = %s", (genre.nameGenre, genre.statusGenre, idGenre))
             self.connection.commit()
             if cursor.rowcount == 0:
-                return RepositoryResponse(success=False, error_message="Genre with id %s not found" % genre.idGenre)
+                return RepositoryResponse(success=False, error_message="Genre didn't change or genre with id %s not found" % genre.idGenre)
             else:
                 return RepositoryResponse(success=True)
         except mysql.connector.Error as error:
             return RepositoryResponse(success=False, error_message=str(error))
-
-
 
     def delete(self, idGenre: int):
         cursor = self.connection.cursor()

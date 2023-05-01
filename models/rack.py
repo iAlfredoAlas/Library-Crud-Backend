@@ -1,19 +1,9 @@
-class Rack:
-    def __init__(self, idRack, nameRack):
-        self.idRack = idRack
-        self.nameRack = nameRack
+from pydantic import BaseModel
+from typing import Optional
 
-    def getId(self):
-        return self.idRack
-
-    def getName(self):
-        return self.nameRack
-
-    def setId(self, idRack):
-        self.idRack = idRack
-
-    def setName(self, nameRack):
-        self.nameRack = nameRack
-
-    def __str__(self):
-        return f"Rack({self.idRack}, {self.nameRack})"
+class Rack(BaseModel):
+    
+    idRack: int = 0
+    nameRack: str = ""
+    levels: int = 0
+    statusRack: bool = True

@@ -1,7 +1,6 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from typing import Optional
-import pickle
 
 from services.GenreService import GenreService
 from models.repositoryResponse import RepositoryResponse
@@ -20,7 +19,6 @@ async def get_genres(page: Optional[int] = 1, limit: Optional[int] = 10, actives
     else:
         return JSONResponse(genresResult.error_message, status_code=400)
     
-
 @GenreRouter.get("/Genre/{idGenre}", tags=["Genre"])
 async def get_genres_by_id(idGenre: int):
     genresResult:RepositoryResponse = await GenreService.get_genre_by_id(idGenre)
@@ -39,7 +37,6 @@ async def post_genre(Genre: Genre):
     else:
         return JSONResponse(genresResult.error_message, status_code=400)
     
-
 @GenreRouter.put("/Genre/{idGenre}", tags=["Genre"])
 async def put_genre(idGenre: int, Genre: Genre):
     genresResult:RepositoryResponse = await GenreService.update_genre(idGenre, Genre)
@@ -49,7 +46,6 @@ async def put_genre(idGenre: int, Genre: Genre):
     else:
         return JSONResponse(genresResult.error_message, status_code=400)
     
-
 @GenreRouter.delete("/Genre/{idGenre}", tags=["Genre"])
 async def delete_genre(idGenre: int):
     genresResult:RepositoryResponse = await GenreService.delete_genre(idGenre)
@@ -59,12 +55,11 @@ async def delete_genre(idGenre: int):
     else:
         return JSONResponse(genresResult.error_message, status_code=400)
     
-
-@GenreRouter.put("/Genre/Activate={idGenre}", tags=["Genre"])
+@GenreRouter.put("/Genre/Activate/{idGenre}", tags=["Genre"])
 async def activate_genre(idGenre: int):
-    genresResult:RepositoryResponse = await GenreService.delete_genre(idGenre)
+    genresResult:RepositoryResponse = await GenreService.Activate_genre(idGenre)
     
     if genresResult.success:
-        return JSONResponse(f"Genero con Id {idGenre} fue eliminado correctamente")
+        return JSONResponse(f"Genero con Id {idGenre} fue Activado correctamente")
     else:
         return JSONResponse(genresResult.error_message, status_code=400)
