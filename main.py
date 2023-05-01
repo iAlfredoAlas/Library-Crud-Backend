@@ -1,48 +1,27 @@
-from models.books import Books
-from models.editorial import Editorial
-from models.author import Author
-from models.genre import Genre
-from models.rack import Rack
-from models.employee import Employee
-from models.user import User
-from models.reserve import Reserve
-from datetime import datetime
-from services.dbContext import DbConnection, DbContext
-from repository.GenreRepository import GenreRepository
+#FastAPI imports
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
+#Implementación Swagger
+from fastapi.openapi.utils import get_openapi
+from fastapi.openapi.docs import get_swagger_ui_html
 
-dbContext = DbContext()
-dbContext.setDefaultContext()
+#route a otros controladores
+from controllers.GenreController import GenreRouter as Genre
 
-dbConnection = dbContext.connect()
+#Instancias y routes
+app = FastAPI()
+app.include_router(Genre)
 
-if dbConnection.success:
-    print("Connected to database!")
+#Swagger documentation
+@app.get("/openapi.json", include_in_schema=False)
+async def get_open_api_endpoint():
+    return JSONResponse(get_openapi(title="Parcial 20%", version="1.0.0", routes=app.routes))
+@app.get("/docs", include_in_schema=False)
+async def get_documentation():
+    return get_swagger_ui_html(openapi_url="/openapi.json", title="documentación")
 
-    #Uso de repositorio Genre Get All
-    repoGetResult = GenreRepository(dbConnection.connection).get_all()
-    all_genres = repoGetResult.content if repoGetResult.success else []
-    for genre in all_genres:
-        print(genre.getIdGenre(), genre.getNameGenre())
-
-    #Uso de repositorio Genre Get By Id
-    repoGetByIdResult = GenreRepository(dbConnection.connection).get_by_id(3)
-    print(repoGetByIdResult.content.getIdGenre(), repoGetByIdResult.content.getNameGenre()) if repoGetByIdResult.content is not None and repoGetByIdResult.success else print("No encontrado "+repoGetByIdResult.error_message)
-
-    #Uso de repositorio Genre Insert
-    genre = Genre(1,'Ejemplo1')
-    repoInsertResult = GenreRepository(dbConnection.connection).insert(genre)
-    print("Insertado") if repoInsertResult.success else print("No Insertado "+repoInsertResult.error_message)
-
-    #Uso de repositorio Genre Update
-    genre = Genre(3, 'Noooooo')
-    repoUpdateResult = GenreRepository(dbConnection.connection).update(genre)
-    print("Actualizado") if repoUpdateResult.success else print("No Actualizado "+repoUpdateResult.error_message)
-
-    #Uso de repositorio Genre Delete
-    repoDeleteResult = GenreRepository(dbConnection.connection).delete(2)
-    print("Eliminado") if repoDeleteResult.success else print("No eliminado "+repoDeleteResult.error_message)
-
-    
-else:
-    print(f"Failed to connect: {dbConnection.error_message}")
+#Endpoints
+@app.get("/", include_in_schema=False)
+async def root():
+    return get_swagger_ui_html(openapi_url="/openapi.json", title="documentación")

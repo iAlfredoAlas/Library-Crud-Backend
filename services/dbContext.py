@@ -15,6 +15,7 @@ class DbContext:
 
     def connect(self):
         try:
+            self.setDefaultContext()
             connection = mysql.connector.connect(
                 host=self.host,
                 user=self.user,
