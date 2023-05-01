@@ -1,6 +1,7 @@
+from pydantic import BaseModel
 from datetime import date
 
-class Editorial:
+class Editorial(BaseModel):
 
     idEditorial: int = 0
     nameEditorial: str = ""
