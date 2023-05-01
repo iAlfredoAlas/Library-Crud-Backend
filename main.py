@@ -18,7 +18,7 @@ app.include_router(Rack)
 #Swagger documentation
 @app.get("/openapi.json", include_in_schema=False)
 async def get_open_api_endpoint():
-    return JSONResponse(get_openapi(title="Parcial 20%", version="1.0.0", routes=app.routes))
+    return JSONResponse(get_openapi(title="Parcial 80%", version="1.0.0", routes=app.routes))
 @app.get("/docs", include_in_schema=False)
 async def get_documentation():
     return get_swagger_ui_html(openapi_url="/openapi.json", title="Documentación")
