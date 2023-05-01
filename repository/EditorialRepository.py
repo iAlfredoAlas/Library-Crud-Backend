@@ -31,7 +31,7 @@ class EditorialRepository:
         
         return RepositoryResponse(result)
     
-    def get_by_id(self, idEditorial: int):
+    def getById(self, idEditorial: int):
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM editorial WHERE idEditorial = %s", (idEditorial,))
         row = cursor.fetchone()
