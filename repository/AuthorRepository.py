@@ -14,7 +14,7 @@ class AuthorRepository:
     def getAll(self, page: int, limit: int):
         offset = (page -1) * limit
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM author LIMIT %s OFFSET %s", (limit, offset))
+        cursor.execute("SELECT * FROM Author LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
         authors = [
@@ -34,7 +34,7 @@ class AuthorRepository:
     def getAllActives(self, page: int = 1, limit: int = 10):
         offset = (page - 1) * limit
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM author WHERE statusAuthor = 1 LIMIT %s OFFSET %s", (limit, offset))
+        cursor.execute("SELECT * FROM Author WHERE statusAuthor = 1 LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
         authors = [
@@ -53,7 +53,7 @@ class AuthorRepository:
     #Method getById Authors
     def getById(self, idAuthor: int):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM author WHERE idAuthor = %s", (idAuthor,))
+        cursor.execute("SELECT * FROM Author WHERE idAuthor = %s", (idAuthor,))
         row = cursor.fetchone()
         if row:
             authors = [
@@ -72,13 +72,13 @@ class AuthorRepository:
     #Method insert Authors
     def insert(self, author: Author):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM author WHERE nameAuthor = %s", (author.nameAuthor,))
+        cursor.execute("SELECT * FROM Author WHERE nameAuthor = %s", (author.nameAuthor,))
 
         if cursor.fetchone():
             return RepositoryResponse(success=False, error_message="Author already exists")
         else:
             try:
-                cursor.execute("INSERT INTO author (nameAuthor, countryBirth, dateBorn) VALUES (%s, %s, %s)", (author.nameAuthor, author.countryBirth, author.dateBorn))
+                cursor.execute("INSERT INTO Author (nameAuthor, countryBirth, dateBorn) VALUES (%s, %s, %s)", (author.nameAuthor, author.countryBirth, author.dateBorn))
                 self.connection.commit()
                 return RepositoryResponse(success=True)
             except mysql.connector.Error as error:
@@ -89,13 +89,13 @@ class AuthorRepository:
         cursor = self.connection.cursor()
         try:
             # Verificar si existe un autor con el mismo nombre
-            cursor.execute("SELECT idAuthor FROM author WHERE nameAuthor = %s AND idAuthor != %s", (author.nameAuthor, idAuthor))
+            cursor.execute("SELECT idAuthor FROM Author WHERE nameAuthor = %s AND idAuthor != %s", (author.nameAuthor, idAuthor))
             result = cursor.fetchone()
             if result is not None:
                 return RepositoryResponse(success=False, error_message="A author with this name already exists")
 
             # Actualizar el género
-            cursor.execute("UPDATE author SET nameAuthor = %s, statusAuthor = %s WHERE idAuthor = %s", (author.nameAuthor, author.statusAuthor, idAuthor))
+            cursor.execute("UPDATE Author SET nameAuthor = %s, statusAuthor = %s WHERE idAuthor = %s", (author.nameAuthor, author.statusAuthor, idAuthor))
             self.connection.commit()
             if cursor.rowcount == 0:
                 return RepositoryResponse(success=False, error_message="Author didn't change or author with id %s not found" % author.idAuthor)
@@ -115,7 +115,7 @@ class AuthorRepository:
             if result is not None:
                 return RepositoryResponse(success=False, error_message="A author with this Id has already been deleted")
 
-            cursor.execute("UPDATE author SET statusAuthor = 0 WHERE idAuthor = %s", (idAuthor,))
+            cursor.execute("UPDATE Author SET statusAuthor = 0 WHERE idAuthor = %s", (idAuthor,))
             if cursor.rowcount > 0:
                 self.connection.commit()
                 return RepositoryResponse(success=True)
@@ -135,7 +135,7 @@ class AuthorRepository:
             if result is not None:
                 return RepositoryResponse(success=False, error_message="A author with this Id has already been Activate")
 
-            cursor.execute("UPDATE author SET statusAuthor = 1 WHERE idAuthor = %s", (idAuthor,))
+            cursor.execute("UPDATE Author SET statusAuthor = 1 WHERE idAuthor = %s", (idAuthor,))
             if cursor.rowcount > 0:
                 self.connection.commit()
                 return RepositoryResponse(success=True)

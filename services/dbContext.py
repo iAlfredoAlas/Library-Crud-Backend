@@ -28,7 +28,7 @@ class DbContext:
             return DbConnection(success=False, error_message=str(error))
     
     def setDefaultContext(self):
-        self.host = 'localhost'
-        self.user = 'root'
-        self.password = ''
-        self.database = 'librarydb'
+        self.host = 'sql9.freesqldatabase.com'
+        self.user = 'sql9615611'
+        self.password = 'n7u6PpR32X'
+        self.database = 'sql9615611'

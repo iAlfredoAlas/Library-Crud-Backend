@@ -14,7 +14,7 @@ class UserRepository:
     def getAll(self, page: int, limit: int):
         offset = (page -1) * limit
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM user LIMIT %s OFFSET %s", (limit, offset))
+        cursor.execute("SELECT * FROM User LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
         users = [
@@ -35,7 +35,7 @@ class UserRepository:
     def getAllActives(self, page: int = 1, limit: int = 10):
         offset = (page - 1) * limit
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM user WHERE statusUser = 1 LIMIT %s OFFSET %s", (limit, offset))
+        cursor.execute("SELECT * FROM User WHERE statusUser = 1 LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
         users = [
@@ -55,7 +55,7 @@ class UserRepository:
     #Method getById Users
     def getById(self, idUser: int):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM user WHERE idUser = %s", (idUser,))
+        cursor.execute("SELECT * FROM User WHERE idUser = %s", (idUser,))
         row = cursor.fetchone()
         if row:
             users = [
@@ -75,13 +75,13 @@ class UserRepository:
     #Method insert User
     def insert(self, user: User):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM user WHERE nameUser = %s", (user.nameUser,))
+        cursor.execute("SELECT * FROM User WHERE nameUser = %s", (user.nameUser,))
 
         if cursor.fetchone():
             return RepositoryResponse(success=False, error_message="User already exists")
         else:
             try:
-                cursor.execute("INSERT INTO user (nameUser, carnetUser, emailUser, phoneUser) VALUES (%s, %s, %s, %s)", (user.nameUser, user.carnetUser, user.emailUser, user.phoneUser))
+                cursor.execute("INSERT INTO User (nameUser, carnetUser, emailUser, phoneUser) VALUES (%s, %s, %s, %s)", (user.nameUser, user.carnetUser, user.emailUser, user.phoneUser))
                 self.connection.commit()
                 return RepositoryResponse(success=True)
             except mysql.connector.Error as error:
@@ -92,13 +92,13 @@ class UserRepository:
         cursor = self.connection.cursor()
         try:
             # Verificar si existe un User con el mismo nombre
-            cursor.execute("SELECT idUser FROM user WHERE nameUser = %s AND idUser != %s", (user.nameUser, idUser))
+            cursor.execute("SELECT idUser FROM User WHERE nameUser = %s AND idUser != %s", (user.nameUser, idUser))
             result = cursor.fetchone()
             if result is not None:
                 return RepositoryResponse(success=False, error_message="A user with this name already exists")
 
             # Actualizar el User
-            cursor.execute("UPDATE user SET nameUser = %s, carnetUser = %s, emailUser = %s, phoneUser = %s, statusUser = %s WHERE idUser = %s", (user.nameUser, user.carnetUser, user.emailUser, user.phoneUser, user.statusUser, idUser))
+            cursor.execute("UPDATE User SET nameUser = %s, carnetUser = %s, emailUser = %s, phoneUser = %s, statusUser = %s WHERE idUser = %s", (user.nameUser, user.carnetUser, user.emailUser, user.phoneUser, user.statusUser, idUser))
             self.connection.commit()
             if cursor.rowcount == 0:
                 return RepositoryResponse(success=False, error_message="User didn't change or user with id %s not found" % user.idUser)
@@ -113,12 +113,12 @@ class UserRepository:
         cursor = self.connection.cursor()
         try:
              # Verificar si existe un user con ese idUser
-            cursor.execute("SELECT idUser FROM user WHERE idUser = %s and statusUser = 0", (idUser,))
+            cursor.execute("SELECT idUser FROM User WHERE idUser = %s and statusUser = 0", (idUser,))
             result = cursor.fetchone()
             if result is not None:
                 return RepositoryResponse(success=False, error_message="A user with this Id has already been deleted")
 
-            cursor.execute("UPDATE user SET statusUser = 0 WHERE idUser = %s", (idUser,))
+            cursor.execute("UPDATE User SET statusUser = 0 WHERE idUser = %s", (idUser,))
             if cursor.rowcount > 0:
                 self.connection.commit()
                 return RepositoryResponse(success=True)
@@ -133,12 +133,12 @@ class UserRepository:
         cursor = self.connection.cursor()
         try:
              # Verificar si existe un user con ese idUser
-            cursor.execute("SELECT idUser FROM user WHERE idUser = %s and statisUser = 1", (idUser,))
+            cursor.execute("SELECT idUser FROM User WHERE idUser = %s and statisUser = 1", (idUser,))
             result = cursor.fetchone()
             if result is not None:
                 return RepositoryResponse(success=False, error_message="A user with this Id has already been Activate")
 
-            cursor.execute("UPDATE user SET statusUser = 1 WHERE idUser = %s", (idUser,))
+            cursor.execute("UPDATE User SET statusUser = 1 WHERE idUser = %s", (idUser,))
             if cursor.rowcount > 0:
                 self.connection.commit()
                 return RepositoryResponse(success=True)

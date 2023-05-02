@@ -12,7 +12,7 @@ class GenreRepository:
     def get_all(self, page: int, limit: int):
         offset = (page - 1) * limit
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM genre LIMIT %s OFFSET %s", (limit, offset))
+        cursor.execute("SELECT * FROM Genre LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
@@ -23,7 +23,7 @@ class GenreRepository:
     def get_all_actives(self, page: int = 1, limit: int = 10):
         offset = (page - 1) * limit
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM genre WHERE statusGenre = 1 LIMIT %s OFFSET %s", (limit, offset))
+        cursor.execute("SELECT * FROM Genre WHERE statusGenre = 1 LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
@@ -33,7 +33,7 @@ class GenreRepository:
         
     def get_by_id(self, idGenre: int):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM genre WHERE idGenre = %s", (idGenre,))
+        cursor.execute("SELECT * FROM Genre WHERE idGenre = %s", (idGenre,))
         row = cursor.fetchone()
         if row:
             column_names = [column[0] for column in cursor.description]
@@ -44,13 +44,13 @@ class GenreRepository:
 
     def insert(self, genre: Genre):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM genre WHERE nameGenre = %s", (genre.nameGenre,))
+        cursor.execute("SELECT * FROM Genre WHERE nameGenre = %s", (genre.nameGenre,))
 
         if cursor.fetchone():
             return RepositoryResponse(success=False, error_message="Genre already exists")
         else:
             try:
-                cursor.execute("INSERT INTO genre (nameGenre, statusGenre) VALUES (%s, %s)", (genre.nameGenre,genre.statusGenre))
+                cursor.execute("INSERT INTO Genre (nameGenre, statusGenre) VALUES (%s, %s)", (genre.nameGenre,genre.statusGenre))
                 self.connection.commit()
                 return RepositoryResponse(success=True)
             except mysql.connector.Error as error:
@@ -60,13 +60,13 @@ class GenreRepository:
         cursor = self.connection.cursor()
         try:
             # Verificar si existe un género con el mismo nombre
-            cursor.execute("SELECT idGenre FROM genre WHERE nameGenre = %s AND idGenre != %s", (genre.nameGenre, idGenre))
+            cursor.execute("SELECT idGenre FROM Genre WHERE nameGenre = %s AND idGenre != %s", (genre.nameGenre, idGenre))
             result = cursor.fetchone()
             if result is not None:
                 return RepositoryResponse(success=False, error_message="A genre with this name already exists")
 
             # Actualizar el género
-            cursor.execute("UPDATE genre SET nameGenre = %s, statusGenre = %s WHERE idGenre = %s", (genre.nameGenre, genre.statusGenre, idGenre))
+            cursor.execute("UPDATE Genre SET nameGenre = %s, statusGenre = %s WHERE idGenre = %s", (genre.nameGenre, genre.statusGenre, idGenre))
             self.connection.commit()
             if cursor.rowcount == 0:
                 return RepositoryResponse(success=False, error_message="Genre didn't change or genre with id %s not found" % genre.idGenre)
@@ -79,12 +79,12 @@ class GenreRepository:
         cursor = self.connection.cursor()
         try:
              # Verificar si existe un género con el mismo nombre
-            cursor.execute("SELECT idGenre FROM genre WHERE idGenre = %s and statusGenre = 0", (idGenre,))
+            cursor.execute("SELECT idGenre FROM Genre WHERE idGenre = %s and statusGenre = 0", (idGenre,))
             result = cursor.fetchone()
             if result is not None:
                 return RepositoryResponse(success=False, error_message="A genre with this Id has already been deleted")
 
-            cursor.execute("UPDATE genre SET statusGenre = 0 WHERE idGenre = %s", (idGenre,))
+            cursor.execute("UPDATE Genre SET statusGenre = 0 WHERE idGenre = %s", (idGenre,))
             if cursor.rowcount > 0:
                 self.connection.commit()
                 return RepositoryResponse(success=True)
@@ -97,12 +97,12 @@ class GenreRepository:
         cursor = self.connection.cursor()
         try:
              # Verificar si existe un género con el mismo nombre
-            cursor.execute("SELECT idGenre FROM genre WHERE idGenre = %s and statusGenre = 1", (idGenre,))
+            cursor.execute("SELECT idGenre FROM Genre WHERE idGenre = %s and statusGenre = 1", (idGenre,))
             result = cursor.fetchone()
             if result is not None:
                 return RepositoryResponse(success=False, error_message="A genre with this Id has already been Activate")
 
-            cursor.execute("UPDATE genre SET statusGenre = 1 WHERE idGenre = %s", (idGenre,))
+            cursor.execute("UPDATE Genre SET statusGenre = 1 WHERE idGenre = %s", (idGenre,))
             if cursor.rowcount > 0:
                 self.connection.commit()
                 return RepositoryResponse(success=True)

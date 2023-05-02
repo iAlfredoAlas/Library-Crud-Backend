@@ -12,7 +12,7 @@ class EditorialRepository:
     def getAll(self, page: int, limit: int):
         offset = (page - 1) * limit
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM editorial LIMIT %s OFFSET %s", (limit, offset))
+        cursor.execute("SELECT * FROM Editorial LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
 
@@ -31,7 +31,7 @@ class EditorialRepository:
     def getAllActives(self, page: int = 1, limit: int = 10):
         offset = (page - 1) * limit
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM editorial WHERE statusEditorial = 1 LIMIT %s OFFSET %s", (limit, offset))
+        cursor.execute("SELECT * FROM Editorial WHERE statusEditorial = 1 LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
 
@@ -49,7 +49,7 @@ class EditorialRepository:
     
     def getById(self, idEditorial: int):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM editorial WHERE idEditorial = %s", (idEditorial,))
+        cursor.execute("SELECT * FROM Editorial WHERE idEditorial = %s", (idEditorial,))
         row = cursor.fetchone()
         if row:
             editorials = {
@@ -64,13 +64,13 @@ class EditorialRepository:
 
     def insert(self, editorial: Editorial):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM editorial WHERE nameEditorial = %s", (editorial.nameEditorial,))
+        cursor.execute("SELECT * FROM Editorial WHERE nameEditorial = %s", (editorial.nameEditorial,))
 
         if cursor.fetchone():
             return RepositoryResponse(success=False, error_message="Editorial already exists")
         else:
             try:
-                cursor.execute("INSERT INTO editorial (nameEditorial, dateAdd, statusEditorial) VALUES (%s, %s, %s)", (editorial.nameEditorial, editorial.dateAdd, editorial.statusEditorial))
+                cursor.execute("INSERT INTO Editorial (nameEditorial, dateAdd, statusEditorial) VALUES (%s, %s, %s)", (editorial.nameEditorial, editorial.dateAdd, editorial.statusEditorial))
                 self.connection.commit()
                 return RepositoryResponse(success=True)
             except mysql.connector.Error as error:
@@ -80,13 +80,13 @@ class EditorialRepository:
         cursor = self.connection.cursor()
         try:
             # Verificar si existe un género con el mismo nombre
-            cursor.execute("SELECT idEditorial FROM editorial WHERE nameEditorial = %s AND idEditorial != %s", (editorial.nameEditorial, idEditorial))
+            cursor.execute("SELECT idEditorial FROM Editorial WHERE nameEditorial = %s AND idEditorial != %s", (editorial.nameEditorial, idEditorial))
             result = cursor.fetchone()
             if result is not None:
                 return RepositoryResponse(success=False, error_message="An Editorial with this name already exists")
 
             # Actualizar el género
-            cursor.execute("UPDATE editorial SET nameEditorial = %s, dateAdd = %s, statusEditorial = %s WHERE idEditorial = %s", (editorial.nameEditorial, editorial.dateAdd, editorial.statusEditorial, idEditorial))
+            cursor.execute("UPDATE Editorial SET nameEditorial = %s, dateAdd = %s, statusEditorial = %s WHERE idEditorial = %s", (editorial.nameEditorial, editorial.dateAdd, editorial.statusEditorial, idEditorial))
             self.connection.commit()
             if cursor.rowcount == 0:
                 return RepositoryResponse(success=False, error_message="Editorial didn't change or editorial with id %s not found" % editorial.idEditorial)
@@ -99,12 +99,12 @@ class EditorialRepository:
         cursor = self.connection.cursor()
         try:
              # Verificar si existe un género con el mismo nombre
-            cursor.execute("SELECT idEditorial FROM editorial WHERE idEditorial = %s and statusEditorial = 0", (idEditorial,))
+            cursor.execute("SELECT idEditorial FROM Editorial WHERE idEditorial = %s and statusEditorial = 0", (idEditorial,))
             result = cursor.fetchone()
             if result is not None:
                 return RepositoryResponse(success=False, error_message="An editorial with this Id has already been deleted")
 
-            cursor.execute("UPDATE editorial SET statusEditorial = 0 WHERE idEditorial = %s", (idEditorial,))
+            cursor.execute("UPDATE Editorial SET statusEditorial = 0 WHERE idEditorial = %s", (idEditorial,))
             if cursor.rowcount > 0:
                 self.connection.commit()
                 return RepositoryResponse(success=True)
@@ -117,12 +117,12 @@ class EditorialRepository:
         cursor = self.connection.cursor()
         try:
              # Verificar si existe un género con el mismo nombre
-            cursor.execute("SELECT idEditorial FROM editorial WHERE idEditorial = %s and statusEditorial = 1", (idEditorial,))
+            cursor.execute("SELECT idEditorial FROM Editorial WHERE idEditorial = %s and statusEditorial = 1", (idEditorial,))
             result = cursor.fetchone()
             if result is not None:
                 return RepositoryResponse(success=False, error_message="A editorial with this Id has already been Activate")
 
-            cursor.execute("UPDATE editorial SET statusEditorial = 1 WHERE idEditorial = %s", (idEditorial,))
+            cursor.execute("UPDATE Editorial SET statusEditorial = 1 WHERE idEditorial = %s", (idEditorial,))
             if cursor.rowcount > 0:
                 self.connection.commit()
                 return RepositoryResponse(success=True)
