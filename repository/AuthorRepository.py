@@ -82,7 +82,7 @@ class AuthorRepository:
                 self.connection.commit()
                 return RepositoryResponse(success=True)
             except mysql.connector.Error as error:
-                return RepositoryResponse(success=False, error_message=str(error))
+                return RepositoryResponse(success=False, error_message="Can not insert Author, %s" % str(error))
     
     #Method update Authrs
     def update(self, idAuthor: int, author: Author):
@@ -102,7 +102,7 @@ class AuthorRepository:
             else:
                 return RepositoryResponse(success=True)
         except mysql.connector.Error as error:
-            return RepositoryResponse(success=False, error_message=str(error))
+            return RepositoryResponse(success=False, error_message="Can not updtae Author, %s" % str(error))
         
 
     #Method delete Author   
@@ -122,7 +122,7 @@ class AuthorRepository:
             else:
                 return RepositoryResponse(success=False, error_message="Auhtor with id %s not found" % idAuthor)
         except mysql.connector.Error as error:
-            return RepositoryResponse(success=False, error_message=str(error))
+            return RepositoryResponse(success=False, error_message="Can not delete Author, %s" % str(error))
 
 
     #Method activate Author
@@ -142,4 +142,4 @@ class AuthorRepository:
             else:
                 return RepositoryResponse(success=False, error_message="Author with id %s not found" % idAuthor)
         except mysql.connector.Error as error:
-            return RepositoryResponse(success=False, error_message=str(error))
+            return RepositoryResponse(success=False, error_message="Can not activate Author, %s" % str(error))
