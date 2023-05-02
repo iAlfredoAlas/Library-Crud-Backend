@@ -1,26 +1,12 @@
-class Employee:
-    def __init__(self, idEmployee, nameEmployee, employeeNumber):
-        self.idEmployee = idEmployee
-        self.nameEmployee = nameEmployee
-        self.employeeNumber = employeeNumber
+#Requeried imports
+from pydantic import BaseModel
+from typing import Optional
 
-    def getIdEmployee(self):
-        return self.idEmployee
+#Create model to Employee object
+class Employee(BaseModel):
+   
+    idEmployee: int = 0
+    nameEmployee: str = ""
+    employeeNumber: str = ""
+    statusEmployee: bool = True
 
-    def getNameEmployee(self):
-        return self.nameEmployee
-
-    def getEmployeeNumber(self):
-        return self.employeeNumber
-
-    def setIdEmployee(self, idEmployee):
-        self.idEmployee = idEmployee
-
-    def setNameEmployee(self, nameEmployee):
-        self.nameEmployee = nameEmployee
-
-    def setEmployeeNumber(self, employeeNumber):
-        self.employeeNumber = employeeNumber
-
-    def __str__(self):
-        return f"Employee({self.idEmployee}, {self.nameEmployee}, {self.employeeNumber})"

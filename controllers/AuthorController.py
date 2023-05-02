@@ -53,7 +53,7 @@ async def putAuthor(idAuthor: int, Author: Author):
         return JSONResponse(authorResult.error_message, status_code=400)
 
 #Controller to delete Author    
-@AuthorRoute.delete("/Author/{idAuthor}", tags=["Auhtor"])
+@AuthorRoute.delete("/Author/{idAuthor}", tags=["Author"])
 async def deleteAuthor(idAuthor: int):
     authorResult:RepositoryResponse = await AuthorService.deleteAuthor(idAuthor)
     
