@@ -1,3 +1,5 @@
+use librarydb;
+
 INSERT INTO Author (nameAuthor, countryBirth, dateBorn, statusAuthor) VALUES
 ('J. R. R. Tolkien', 'Reino Unido', '1892-01-03', 1),
 ('George R. R. Martin', 'Estados Unidos', '1948-09-20', 1),
