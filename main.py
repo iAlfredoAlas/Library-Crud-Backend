@@ -12,6 +12,8 @@ from controllers.RackController import RackRouter as Rack
 from controllers.AuthorController import AuthorRouter as Author
 from controllers.EditorialController import EditorialRouter as Editorial
 from controllers.EmployeeController import EmployeeRouter as Employee
+from controllers.UserController import UserRouter as User
+
 
 #Instancias y routes
 app = FastAPI()
@@ -20,6 +22,7 @@ app.include_router(Rack)
 app.include_router(Author)
 app.include_router(Editorial)
 app.include_router(Employee)
+app.include_router(User)
 
 #Swagger documentation
 @app.get("/openapi.json", include_in_schema=False)
