@@ -117,7 +117,7 @@ class EmployeeRepository:
                 self.connection.commit()
                 return RepositoryResponse(success=True)
             else:
-                return RepositoryResponse(success=False, error_message="Auhtor with id %s not found" % idEmployee)
+                return RepositoryResponse(success=False, error_message="Employee with id %s not found" % idEmployee)
         except mysql.connector.Error as error:
             return RepositoryResponse(success=False, error_message=str(error))
 
