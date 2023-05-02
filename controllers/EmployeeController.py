@@ -62,7 +62,7 @@ async def deleteEmployee(idEmployee: int):
     else:
         return JSONResponse(employeeResult.error_message, status_code=400)
     
-#Controller to activate AuEmployee    
+#Controller to activate Employee    
 @EmployeeRouter.put("/Employee/Activate/{idEmployee}", tags=["Employee"])
 async def activateEmployee(idEmployee: int):
     employeeResult:RepositoryResponse = await EmployeeService.activeEmployee(idEmployee)
