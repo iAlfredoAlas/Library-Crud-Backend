@@ -3,14 +3,14 @@ import mysql.connector
 from models.employee import Employee
 from models.repositoryResponse import RepositoryResponse
 
-#Class of EmployeeRepository
+##Class of EmployeeRepository
 class EmployeeRepository:
 
     #initialization of the EmployeeRepository
     def __init__(self, connection):
         self.connection = connection
     
-    #Method getAll EMployees
+    #Method getAll Employees
     def getAll(self, page: int, limit: int):
         offset = (page -1) * limit
         cursor = self.connection.cursor()
@@ -19,118 +19,124 @@ class EmployeeRepository:
         rows = cursor.fetchall()
         employees = [
             {
-                "idEmployee": author[0],
-                "nameEmployee": author[1],
-                "employeeNumber": author[2],
-                "statusEmployee": author[3]
+                "idEmployee": employee[0],
+                "nameEmployee": employee[1],
+                "employeeNumber": employee[2],
+                "statusEmployee": employee[3]
             }
-            for author in rows
+            for employee in rows
         ]
 
-        return RepositoryResponse(authors)
+        return RepositoryResponse(employees)
     
     #Method getAllActives
     def getAllActives(self, page: int = 1, limit: int = 10):
         offset = (page - 1) * limit
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM author WHERE statusAuthor = 1 LIMIT %s OFFSET %s", (limit, offset))
+        cursor.execute("SELECT * FROM employee WHERE statusEmployee = 1 LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
-        columns = [desc[0] for desc in cursor.description]
-        result = [dict(zip(columns, row)) for row in rows]
+        employees = [
+            {
+                "idEmployee": employee[0],
+                "nameEmployee": employee[1],
+                "employeeNumber": employee[2],
+                "statusEmployee": employee[3]
+            }
+            for employee in rows
+        ]
         
-        return RepositoryResponse(result)
+        return RepositoryResponse(employees)
     
-    #Method getById Authors
-    def getById(self, idAuthor: int):
+    #Method getById Employees
+    def getById(self, idEmployee: int):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM author WHERE idAuthor = %s", (idAuthor,))
+        cursor.execute("SELECT * FROM employee WHERE idEmployee = %s", (idEmployee,))
         row = cursor.fetchone()
         if row:
-            authors = [
+            employees = [
             {
-                "idAuthor": row[0],
-                "nameAuthor": row[1],
-                "countryBirth": row[2],
-                "dateBorn": str(row[3]),
-                "statusAuthor": row[4]
+                "idEmployee": row[0],
+                "nameEmployee": row[1],
+                "employeeNumber": row[2],
+                "statusEmployee": row[3]
             }
         ]
-            return RepositoryResponse(authors)
+            return RepositoryResponse(employees)
         else:
-            return RepositoryResponse(success=False, error_message="Author not found")
+            return RepositoryResponse(success=False, error_message="Employee not found")
         
-    #Method insert Authors
-    def insert(self, author: Author):
+    #Method insert Employees
+    def insert(self, employee: Employee):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM author WHERE nameAuthor = %s", (author.nameAuthor,))
+        cursor.execute("SELECT * FROM employee WHERE nameEmployee = %s", (employee.nameEmployee,))
 
         if cursor.fetchone():
-            return RepositoryResponse(success=False, error_message="Author already exists")
+            return RepositoryResponse(success=False, error_message="Employee already exists")
         else:
             try:
-                cursor.execute("INSERT INTO author (nameAuthor, countryBirth, dateBorn) VALUES (%s, %s, %s)", (author.nameAuthor, author.countryBirth, author.dateBorn))
+                cursor.execute("INSERT INTO employee (nameEmployee, employeeNumber) VALUES (%s, %s)", (employee.nameEmployee, employee.employeeNumber))
                 self.connection.commit()
                 return RepositoryResponse(success=True)
             except mysql.connector.Error as error:
                 return RepositoryResponse(success=False, error_message=str(error))
     
-    #Method update Authrs
-    def update(self, idAuthor: int, author: Author):
+    #Method update Employees
+    def update(self, idEmployee: int, employee: Employee):
         cursor = self.connection.cursor()
         try:
-            # Verificar si existe un autor con el mismo nombre
-            cursor.execute("SELECT idAuthor FROM author WHERE nameAuthor = %s AND idAuthor != %s", (author.nameAuthor, idAuthor))
+            # Verificar si existe un Employee con el mismo nombre
+            cursor.execute("SELECT idEmployee FROM employee WHERE nameEmployee = %s AND idEmployee != %s", (employee.nameEmployee, idEmployee))
             result = cursor.fetchone()
             if result is not None:
-                return RepositoryResponse(success=False, error_message="A author with this name already exists")
+                return RepositoryResponse(success=False, error_message="A employee with this name already exists")
 
-            # Actualizar el género
-            cursor.execute("UPDATE author SET nameAuthor = %s, statusAuthor = %s WHERE idAuthor = %s", (author.nameAuthor, author.statusAuthor, idAuthor))
+            # Actualizar el Employee
+            cursor.execute("UPDATE employee SET nameEmployee = %s, statusEmployee = %s WHERE idEmployee = %s", (employee.nameEmployee, employee.statusEmployee, idEmployee))
             self.connection.commit()
             if cursor.rowcount == 0:
-                return RepositoryResponse(success=False, error_message="Author didn't change or author with id %s not found" % author.idAuthor)
+                return RepositoryResponse(success=False, error_message="Employee didn't change or employee with id %s not found" % employee.idEmployee)
             else:
                 return RepositoryResponse(success=True)
         except mysql.connector.Error as error:
             return RepositoryResponse(success=False, error_message=str(error))
         
 
-    #Method delete Author   
-    def delete(self, idAuthor: int):
+    #Method delete Employee   
+    def delete(self, idEmployee: int):
         cursor = self.connection.cursor()
         try:
-             # Verificar si existe un author con ese idAuthor
-            cursor.execute("SELECT idAuthor FROM author WHERE idAuthor = %s and statusAuthor = 0", (idAuthor,))
+             # Verificar si existe un employee con ese idEmployee
+            cursor.execute("SELECT idEmployee FROM employee WHERE idEmployee = %s and statusEmployee = 0", (idEmployee,))
             result = cursor.fetchone()
             if result is not None:
-                return RepositoryResponse(success=False, error_message="A author with this Id has already been deleted")
+                return RepositoryResponse(success=False, error_message="A employee with this Id has already been deleted")
 
-            cursor.execute("UPDATE author SET statusAuthor = 0 WHERE idAuthor = %s", (idAuthor,))
+            cursor.execute("UPDATE employee SET statusEmployee = 0 WHERE idEmployee = %s", (idEmployee,))
             if cursor.rowcount > 0:
                 self.connection.commit()
                 return RepositoryResponse(success=True)
             else:
-                return RepositoryResponse(success=False, error_message="Auhtor with id %s not found" % idAuthor)
+                return RepositoryResponse(success=False, error_message="Auhtor with id %s not found" % idEmployee)
         except mysql.connector.Error as error:
             return RepositoryResponse(success=False, error_message=str(error))
 
 
-    #Method activate Author
-    def activate(self, idAuthor: int):
+    #Method activate Employee
+    def activate(self, idEmployee: int):
         cursor = self.connection.cursor()
         try:
-             # Verificar si existe un author con ese idAuthor
-            cursor.execute("SELECT idAuthor FROM author WHERE idAuthor = %s and statusAuthor = 1", (idAuthor,))
+             # Verificar si existe un employee con ese idEmployee
+            cursor.execute("SELECT idEmployee FROM employee WHERE idEmployee = %s and statusEmployee = 1", (idEmployee,))
             result = cursor.fetchone()
             if result is not None:
-                return RepositoryResponse(success=False, error_message="A author with this Id has already been Activate")
+                return RepositoryResponse(success=False, error_message="A employee with this Id has already been Activate")
 
-            cursor.execute("UPDATE author SET statusAuthor = 1 WHERE idAuthor = %s", (idAuthor,))
+            cursor.execute("UPDATE employee SET statusEmployee = 1 WHERE idEmployee = %s", (idEmployee,))
             if cursor.rowcount > 0:
                 self.connection.commit()
                 return RepositoryResponse(success=True)
             else:
-                return RepositoryResponse(success=False, error_message="Author with id %s not found" % idAuthor)
+                return RepositoryResponse(success=False, error_message="Employee with id %s not found" % idEmployee)
         except mysql.connector.Error as error:
             return RepositoryResponse(success=False, error_message=str(error))
