@@ -15,6 +15,7 @@ async def getEditorial(page: Optional[int] = 1, limit: Optional[int] = 10, activ
     editorialResult:RepositoryResponse = await EditorialService.getEditorial(page, limit, actives)
     
     if editorialResult.success:
+        print(editorialResult.content)
         return JSONResponse(editorialResult.content)
     else:
         return JSONResponse(editorialResult.error_message, status_code=400)

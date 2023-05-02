@@ -1,29 +1,28 @@
 #Requerid imports
 import mysql.connector
-from models.author import Author
+from models.employee import Employee
 from models.repositoryResponse import RepositoryResponse
 
-#Class of AuthorRepository
-class AuthorRepository:
+#Class of EmployeeRepository
+class EmployeeRepository:
 
-    #initialization of the AuthorRepository
+    #initialization of the EmployeeRepository
     def __init__(self, connection):
         self.connection = connection
     
-    #Method getAll Authors
+    #Method getAll EMployees
     def getAll(self, page: int, limit: int):
         offset = (page -1) * limit
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM author LIMIT %s OFFSET %s", (limit, offset))
+        cursor.execute("SELECT * FROM employee LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
-        authors = [
+        employees = [
             {
-                "idAuthor": author[0],
-                "nameAuhtor": author[1],
-                "countryBirth": author[2],
-                "dateBorn": str(author[3]),
-                "statusAuthor": author[4]
+                "idEmployee": author[0],
+                "nameEmployee": author[1],
+                "employeeNumber": author[2],
+                "statusEmployee": author[3]
             }
             for author in rows
         ]
@@ -37,18 +36,10 @@ class AuthorRepository:
         cursor.execute("SELECT * FROM author WHERE statusAuthor = 1 LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
-        authors = [
-            {
-                "idAuthor": author[0],
-                "nameAuhtor": author[1],
-                "countryBirth": author[2],
-                "dateBorn": str(author[3]),
-                "statusAuthor": author[4]
-            }
-            for author in rows
-        ]
+        columns = [desc[0] for desc in cursor.description]
+        result = [dict(zip(columns, row)) for row in rows]
         
-        return RepositoryResponse(authors)
+        return RepositoryResponse(result)
     
     #Method getById Authors
     def getById(self, idAuthor: int):

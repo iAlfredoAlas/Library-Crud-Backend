@@ -17,6 +17,7 @@ async def getAuthors(page: Optional[int] = 1, limit: Optional[int] = 10, actives
     authorResult:RepositoryResponse = await AuthorService.getAuthor(page, limit, actives)
     
     if authorResult.success:
+        print(authorResult.content)
         return JSONResponse(authorResult.content)
     else:
         return JSONResponse(authorResult.error_message, status_code=400)
