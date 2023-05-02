@@ -34,7 +34,7 @@ class EditorialService:
             #Validar si el editorial es correcto
             if not Editorial.nameEditorial.split():
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
-            if Editorial.dateAdd <= date(1900, 1, 1):
+            if Editorial.dateAdd <= date(1700, 1, 1):
                 return RepositoryResponse(success=False, error_message=f"La fecha es incorrecta o es minima {Editorial.dateAdd}")
 
             repo_response: RepositoryResponse = EditorialRepository(dbConnection.connection).insert(Editorial)
@@ -50,7 +50,7 @@ class EditorialService:
             #Validar si el editorial es correcto
             if not Editorial.nameEditorial.split():
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
-            if Editorial.dateAdd <= date(1900, 1, 1):
+            if Editorial.dateAdd <= date(1700, 1, 1):
                 return RepositoryResponse(success=False, error_message=f"La fecha es incorrecta o es minima {Editorial.dateAdd}")
 
             repo_response: RepositoryResponse = EditorialRepository(dbConnection.connection).update(idEditorial, Editorial)

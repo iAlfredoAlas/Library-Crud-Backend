@@ -8,10 +8,10 @@ from models.repositoryResponse import RepositoryResponse
 from models.author import Author
 
 #Create route
-AuthorRoute = APIRouter()
+AuthorRouter = APIRouter()
 
 #This controller can be uses like this "/Author?page=2&limit=20"
-@AuthorRoute.get("/Author", tags=["Author"], summary="To add pagination use '/Author?page=1&limit=10&actives=True'")
+@AuthorRouter.get("/Author", tags=["Author"], summary="To add pagination use '/Author?page=1&limit=10&actives=True'")
 async def getAuthors(page: Optional[int] = 1, limit: Optional[int] = 10, actives: Optional[bool] = False):
 
     authorResult:RepositoryResponse = await AuthorService.getAuthor(page, limit, actives)
@@ -22,7 +22,7 @@ async def getAuthors(page: Optional[int] = 1, limit: Optional[int] = 10, actives
         return JSONResponse(authorResult.error_message, status_code=400)
 
 #Controller to get authors by id    
-@AuthorRoute.get("/Author/{idAuthor}", tags=["Author"])
+@AuthorRouter.get("/Author/{idAuthor}", tags=["Author"])
 async def getAuthorsById(idAuthor: int):
     
     authorResult:RepositoryResponse = await AuthorService.getAuthorById(idAuthor)
@@ -33,7 +33,7 @@ async def getAuthorsById(idAuthor: int):
         return JSONResponse(authorResult.error_message, status_code=400)
 
 #Controller to post new Author    
-@AuthorRoute.post("/Author", tags=["Author"])
+@AuthorRouter.post("/Author", tags=["Author"])
 async def postAuthor(Author: Author):
     authorResult:RepositoryResponse = await AuthorService.insertAuthor(Author)
     
@@ -43,7 +43,7 @@ async def postAuthor(Author: Author):
         return JSONResponse(authorResult.error_message, status_code=400)
 
 #Controller to edit Author
-@AuthorRoute.put("/Author/{idAuthor}", tags=["Author"])
+@AuthorRouter.put("/Author/{idAuthor}", tags=["Author"])
 async def putAuthor(idAuthor: int, Author: Author):
     authorResult:RepositoryResponse = await AuthorService.updateAuthor(idAuthor, Author)
     
@@ -53,7 +53,7 @@ async def putAuthor(idAuthor: int, Author: Author):
         return JSONResponse(authorResult.error_message, status_code=400)
 
 #Controller to delete Author    
-@AuthorRoute.delete("/Author/{idAuthor}", tags=["Author"])
+@AuthorRouter.delete("/Author/{idAuthor}", tags=["Author"])
 async def deleteAuthor(idAuthor: int):
     authorResult:RepositoryResponse = await AuthorService.deleteAuthor(idAuthor)
     
@@ -63,7 +63,7 @@ async def deleteAuthor(idAuthor: int):
         return JSONResponse(authorResult.error_message, status_code=400)
     
 #Controller to activate Author    
-@AuthorRoute.put("/Author/Activate/{idAuthor}", tags=["Author"])
+@AuthorRouter.put("/Author/Activate/{idAuthor}", tags=["Author"])
 async def activateAuthor(idAuthor: int):
     authorResult:RepositoryResponse = await AuthorService.activeAuthor(idAuthor)
     

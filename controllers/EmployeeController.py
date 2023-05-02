@@ -8,10 +8,10 @@ from models.repositoryResponse import RepositoryResponse
 from models.employee import Employee
 
 #Create route
-EmployeeRoute = APIRouter()
+EmployeeRouter = APIRouter()
 
 #This controller can be uses like this "/Employee?page=2&limit=20"
-@EmployeeRoute.get("/Employee", tags=["Employee"], summary="To add pagination use '/Employee?page=1&limit=10&actives=True'")
+@EmployeeRouter.get("/Employee", tags=["Employee"], summary="To add pagination use '/Employee?page=1&limit=10&actives=True'")
 async def getEmployee(page: Optional[int] = 1, limit: Optional[int] = 10, actives: Optional[bool] = False):
 
     employeeResult:RepositoryResponse = await EmployeeService.getEmployee(page, limit, actives)
@@ -22,7 +22,7 @@ async def getEmployee(page: Optional[int] = 1, limit: Optional[int] = 10, active
         return JSONResponse(employeeResult.error_message, status_code=400)
 
 #Controller to get employee by id    
-@EmployeeRoute.get("/Employee/{idEmployee}", tags=["Employee"])
+@EmployeeRouter.get("/Employee/{idEmployee}", tags=["Employee"])
 async def getEmployeesById(idEmployee: int):
     
     employeeResult:RepositoryResponse = await EmployeeService.getEmployeeById(idEmployee)
@@ -33,7 +33,7 @@ async def getEmployeesById(idEmployee: int):
         return JSONResponse(employeeResult.error_message, status_code=400)
 
 #Controller to post new Employee    
-@EmployeeRoute.post("/Employee", tags=["Employee"])
+@EmployeeRouter.post("/Employee", tags=["Employee"])
 async def postEmployee(Employee: Employee):
     employeeResult:RepositoryResponse = await EmployeeService.insertEmployee(Employee)
     
@@ -43,7 +43,7 @@ async def postEmployee(Employee: Employee):
         return JSONResponse(employeeResult.error_message, status_code=400)
 
 #Controller to edit Employee
-@Employee.put("/Employee/{idEmployee}", tags=["Employee"])
+@EmployeeRouter.put("/Employee/{idEmployee}", tags=["Employee"])
 async def putEmployee(idEmployee: int, Employee: Employee):
     employeeResult:RepositoryResponse = await EmployeeService.updateEmployee(idEmployee, Employee)
     
@@ -53,7 +53,7 @@ async def putEmployee(idEmployee: int, Employee: Employee):
         return JSONResponse(employeeResult.error_message, status_code=400)
 
 #Controller to delete Employee    
-@EmployeeRoute.delete("/Employee/{idEmployee}", tags=["Employee"])
+@EmployeeRouter.delete("/Employee/{idEmployee}", tags=["Employee"])
 async def deleteEmployee(idEmployee: int):
     employeeResult:RepositoryResponse = await EmployeeService.deleteEmployee(idEmployee)
     
@@ -63,7 +63,7 @@ async def deleteEmployee(idEmployee: int):
         return JSONResponse(employeeResult.error_message, status_code=400)
     
 #Controller to activate AuEmployee    
-@EmployeeRoute.put("/Employee/Activate/{idEmployee}", tags=["Employee"])
+@EmployeeRouter.put("/Employee/Activate/{idEmployee}", tags=["Employee"])
 async def activateEmployee(idEmployee: int):
     employeeResult:RepositoryResponse = await EmployeeService.activeEmployee(idEmployee)
     

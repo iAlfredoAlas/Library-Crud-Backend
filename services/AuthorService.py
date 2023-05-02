@@ -3,6 +3,7 @@ from services.dbContext import DbContext
 from repository.AuthorRepository import AuthorRepository
 from models.repositoryResponse import RepositoryResponse
 from models.author import Author
+from datetime import date
 
 #Class of AuthorService
 class AuthorService:
@@ -36,7 +37,9 @@ class AuthorService:
             #Validar si el autor es correcto
             if not Author.nameAuthor.split():
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
-
+            if Author.dateBorn <= date(1700, 1, 1):
+                return RepositoryResponse(success=False, error_message=f"La fecha es incorrecta o es minima {Author.dateBorn}")
+            
             repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).insert(Author)
             return repo_response
         else: 
@@ -51,7 +54,9 @@ class AuthorService:
             #Validar si el autor es correcto
             if not Author.nameAuthor.split():
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
-
+            if Author.dateBorn <= date(1700, 1, 1):
+                return RepositoryResponse(success=False, error_message=f"La fecha es incorrecta o es minima {Author.dateBorn}")
+            
             repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).update(idAuthor, Author)
             return repo_response
         else: 

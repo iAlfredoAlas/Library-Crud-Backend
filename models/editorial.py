@@ -5,5 +5,5 @@ class Editorial(BaseModel):
 
     idEditorial: int = 0
     nameEditorial: str = ""
-    dateAdd: date = date(1900, 1, 1)
+    dateAdd: date = date(1700, 1, 1)
     statusEditorial: bool = True
