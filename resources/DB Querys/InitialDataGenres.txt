@@ -1,6 +1,6 @@
 use librarydb;
 
-INSERT INTO genre (idGenre, nameGenre, statusGenre)
+INSERT INTO Genre (idGenre, nameGenre, statusGenre)
 VALUES
   (1, 'Science Fiction', true),
   (2, 'Mystery', true),
