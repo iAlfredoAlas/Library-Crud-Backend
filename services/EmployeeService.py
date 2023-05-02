@@ -1,80 +1,80 @@
 #Requerid imports
 from services.dbContext import DbContext
-from repository.AuthorRepository import AuthorRepository
+from repository.EmployeeRepository import EmployeeRepository
 from models.repositoryResponse import RepositoryResponse
-from models.author import Author
+from models.employee import Employee
 
-#Class of AuthorService
-class AuthorService:
+#Class of EmployeeService
+class EmployeeService:
 
-    #Pagination to Author
-    async def getAuthor(page: int, limit: int, actives: bool):
+    #Pagination to Employee
+    async def getEmployee(page: int, limit: int, actives: bool):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
-            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).getAll(page, limit) if not actives else AuthorRepository(dbConnection.connection).getAllActives(page, limit)
+            repo_response: RepositoryResponse = EmployeeRepository(dbConnection.connection).getAll(page, limit) if not actives else EmployeeRepository(dbConnection.connection).getAllActives(page, limit)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
         
-    #Get Author by id    
-    async def getAuthorById(idAuthor: int):
+    #Get Employee by id    
+    async def getEmployeeById(idEmployee: int):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
-            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).getById(idAuthor)
+            repo_response: RepositoryResponse = EmployeeRepository(dbConnection.connection).getById(idEmployee)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
 
-    #Insert Authors    
-    async def insertAuthor(Author: Author):
+    #Insert Employees    
+    async def insertEmployee(Employee: Employee):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
 
             #Validar si el autor es correcto
-            if not Author.nameAuthor.split():
+            if not Employee.nameEmployee.split():
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
 
-            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).insert(Author)
+            repo_response: RepositoryResponse = EmployeeRepository(dbConnection.connection).insert(Employee)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
 
-    #Update Authors    
-    async def updateAuthor(idAuthor: int, Author: Author):
+    #Update Employees    
+    async def updateEmployee(idEmployee: int, Employee: Employee):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
 
             #Validar si el autor es correcto
-            if not Author.nameAuthor.split():
+            if not Employee.nameEmployee.split():
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
 
-            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).update(idAuthor, Author)
+            repo_response: RepositoryResponse = EmployeeRepository(dbConnection.connection).update(idEmployee, Employee)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
 
-    #Delete Author    
-    async def deleteAuthor(idAuthor: int):
+    #Delete Employee    
+    async def deleteEmployee(idEmployee: int):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
 
-            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).delete(idAuthor)
+            repo_response: RepositoryResponse = EmployeeRepository(dbConnection.connection).delete(idEmployee)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
 
-    #Active Author    
-    async def activeAuthor(idAuthor: int):
+    #Active Employee    
+    async def activeEmployee(idEmployee: int):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
 
-            repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).activate(idAuthor)
+            repo_response: RepositoryResponse = EmployeeRepository(dbConnection.connection).activate(idEmployee)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
