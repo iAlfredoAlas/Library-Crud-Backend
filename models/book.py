@@ -16,6 +16,7 @@ class Book(BaseModel):
     totalPague: int = ""
     quantityStock: int = ""
     bookCover: str = ""
+    statusBook: bool = True
     idAuthor: int = 0
     author: Author = None
     idEditorial: int = 0
