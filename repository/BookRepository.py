@@ -156,5 +156,82 @@ class BookRepository:
             return RepositoryResponse(books)
         else:
             return RepositoryResponse(success=False, error_message="Book not found")
+        
+
+        #Method insert Book
+    def insert(self, book: Book):
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT * FROM Book WHERE bookName = %s", (book.bookName,))
+
+        if cursor.fetchone():
+            return RepositoryResponse(success=False, error_message="Book already exists")
+        else:
+            try:
+                cursor.execute("INSERT INTO Book (idBook, bookName, publicationDate, totalPague, quantityStock, bookCover, statusBook, idAuthor, idEditorial, idGenre, idRack) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (book.idBook, book.bookName, book.publicationDate, book.totalPague, book.quantityStock, book.bookCover, book.statusBook, book.idAuthor, book.idEditorial, book.idGenre, book.idRack))
+                self.connection.commit()
+                return RepositoryResponse(success=True)
+            except mysql.connector.Error as error:
+                return RepositoryResponse(success=False, error_message="Can not insert Book, %s" % str(error))
+    
+    #Method update Authrs
+    def update(self, idBook: int, book: Book):
+        cursor = self.connection.cursor()
+        try:
+            # Verificar si existe un autor con el mismo nombre
+            cursor.execute("SELECT * FROM Book WHERE bookName = %s AND idBook != %s", (book.bookName, idBook))
+            result = cursor.fetchone()
+            if result is not None:
+                return RepositoryResponse(success=False, error_message="A book with this name already exists")
+
+            # Actualizar el book
+            cursor.execute("UPDATE Book SET bookName = %s, publicationDate = %s, totalPague = %s, quantityStock = %s, bookCover = %s, statusBook = %s, idAuthor = %s, idEditorial = %s, idGenre = %s, idRack = %s WHERE idBook = %s", (book.bookName, book.publicationDate, book.totalPague, book.quantityStock, book.bookCover, book.statusBook, book.idAuthor, book.idEditorial, book.idGenre, book.idRack, book.idBook))
+            self.connection.commit()
+            if cursor.rowcount == 0:
+                return RepositoryResponse(success=False, error_message="Book didn't change or book with id %s not found" % book.idBook)
+            else:
+                return RepositoryResponse(success=True)
+        except mysql.connector.Error as error:
+            return RepositoryResponse(success=False, error_message="Can not updtae Book, %s" % str(error))
+        
+
+    #Method delete AutBookhor   
+    def delete(self, idBook: int):
+        cursor = self.connection.cursor()
+        try:
+             # Verificar si existe un book con ese idbook
+            cursor.execute("SELECT * FROM Book WHERE bookName = %s and statusBook = 0", (idBook,))
+            result = cursor.fetchone()
+            if result is not None:
+                return RepositoryResponse(success=False, error_message="A book with this Id has already been deleted")
+
+            cursor.execute("UPDATE Book SET statusBook = 0 WHERE idBook = %s", (idBook,))
+            if cursor.rowcount > 0:
+                self.connection.commit()
+                return RepositoryResponse(success=True)
+            else:
+                return RepositoryResponse(success=False, error_message="Book with id %s not found" % idBook)
+        except mysql.connector.Error as error:
+            return RepositoryResponse(success=False, error_message="Can not delete Book, %s" % str(error))
+
+
+    #Method activate Book
+    def activate(self, idBook: int):
+        cursor = self.connection.cursor()
+        try:
+             # Verificar si existe un Book con ese idBook
+            cursor.execute("SELECT * FROM Book WHERE bookName = %s and statusBook = 1", (idBook,))
+            result = cursor.fetchone()
+            if result is not None:
+                return RepositoryResponse(success=False, error_message="A book with this Id has already been activate")
+
+            cursor.execute("UPDATE Book SET statusBook = 1 WHERE idBook = %s", (idBook,))
+            if cursor.rowcount > 0:
+                self.connection.commit()
+                return RepositoryResponse(success=True)
+            else:
+                return RepositoryResponse(success=False, error_message="Book with id %s not found" % idBook)
+        except mysql.connector.Error as error:
+            return RepositoryResponse(success=False, error_message="Can not activate Book, %s" % str(error))
+
 
     

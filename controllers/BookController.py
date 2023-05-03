@@ -31,3 +31,43 @@ async def getBooksById(idBook: int):
         return JSONResponse(BookResult.content)
     else:
         return JSONResponse(BookResult.error_message, status_code=400)
+    
+#Controller to post new Book    
+@BookRouter.post("/Book", tags=["Book"])
+async def postBook(Book: Book):
+    BookResult:RepositoryResponse = await BookService.insertBook(Book)
+    
+    if BookResult.success:
+        return JSONResponse(f"Book {Book.nameBook} successfully added")
+    else:
+        return JSONResponse(BookResult.error_message, status_code=400)
+
+#Controller to edit Book
+@BookRouter.put("/Book/{idBook}", tags=["Book"])
+async def putBook(idBook: int, Book: Book):
+    BookResult:RepositoryResponse = await BookService.updateBook(idBook, Book)
+    
+    if BookResult.success:
+        return JSONResponse(f"Book {Book.nameBook} successfully edited")
+    else:
+        return JSONResponse(BookResult.error_message, status_code=400)
+
+#Controller to delete Book    
+@BookRouter.delete("/Book/{idBook}", tags=["Book"])
+async def deleteBook(idBook: int):
+    BookResult:RepositoryResponse = await BookService.deleteBook(idBook)
+    
+    if BookResult.success:
+        return JSONResponse(f"Book with Id {idBook} successfully deleted")
+    else:
+        return JSONResponse(BookResult.error_message, status_code=400)
+    
+#Controller to activate Book    
+@BookRouter.put("/Book/Activate/{idBook}", tags=["Book"])
+async def activateBook(idBook: int):
+    BookResult:RepositoryResponse = await BookService.activeBook(idBook)
+    
+    if BookResult.success:
+        return JSONResponse(f"Book with Id {idBook} successfully activated")
+    else:
+        return JSONResponse(BookResult.error_message, status_code=400)

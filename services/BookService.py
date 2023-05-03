@@ -27,3 +27,55 @@ class BookService:
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
+        
+        #Insert Books    
+    async def insertBook(Book: Book):
+        dbConnection = DbContext().connect()
+
+        if dbConnection.success:
+
+            #Validar si el book es correcto
+            if not Book.bookName.split():
+                return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
+            
+            repo_response: RepositoryResponse = BookRepository(dbConnection.connection).insert(Book)
+            return repo_response
+        else: 
+            return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
+
+    #Update Books    
+    async def updateBook(idBook: int, Book: Book):
+        dbConnection = DbContext().connect()
+
+        if dbConnection.success:
+
+            #Validar si el book es correcto
+            if not Book.bookName.split():
+                return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
+            
+            repo_response: RepositoryResponse = BookRepository(dbConnection.connection).update(idBook, Book)
+            return repo_response
+        else: 
+            return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
+
+    #Delete Book    
+    async def deleteBook(idBook: int):
+        dbConnection = DbContext().connect()
+
+        if dbConnection.success:
+
+            repo_response: RepositoryResponse = BookRepository(dbConnection.connection).delete(idBook)
+            return repo_response
+        else: 
+            return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
+
+    #Active Book    
+    async def activeBook(idBook: int):
+        dbConnection = DbContext().connect()
+
+        if dbConnection.success:
+
+            repo_response: RepositoryResponse = BookRepository(dbConnection.connection).activate(idBook)
+            return repo_response
+        else: 
+            return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
