@@ -7,9 +7,6 @@ from editorial import Editorial
 from genre import Genre
 from rack import Rack
 
-
-
-
 #Create model to Book object
 class Book(BaseModel):
 
