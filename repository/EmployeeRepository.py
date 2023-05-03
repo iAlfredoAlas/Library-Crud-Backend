@@ -99,7 +99,7 @@ class EmployeeRepository:
             else:
                 return RepositoryResponse(success=True)
         except mysql.connector.Error as error:
-            return RepositoryResponse(success=False, error_message=str(error))
+            return RepositoryResponse(success=False, error_message="Can not update Employee, %s" % str(error))
         
 
     #Method delete Employee   
@@ -119,7 +119,7 @@ class EmployeeRepository:
             else:
                 return RepositoryResponse(success=False, error_message="Employee with id %s not found" % idEmployee)
         except mysql.connector.Error as error:
-            return RepositoryResponse(success=False, error_message=str(error))
+            return RepositoryResponse(success=False, error_message="Can not delete Employee, %s" % str(error))
 
 
     #Method activate Employee
@@ -139,4 +139,4 @@ class EmployeeRepository:
             else:
                 return RepositoryResponse(success=False, error_message="Employee with id %s not found" % idEmployee)
         except mysql.connector.Error as error:
-            return RepositoryResponse(success=False, error_message=str(error))
+            return RepositoryResponse(success=False, error_message="Can not activate Employee, %s" % str(error))
