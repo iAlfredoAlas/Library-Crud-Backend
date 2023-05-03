@@ -8,12 +8,12 @@ from datetime import date
 #Class of BookService
 class BookService:
 
-    #Pagination to BookBook
+    #Pagination to Book
     async def getBook(page: int, limit: int, actives: bool):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
-            repo_response: RepositoryResponse = BookRepository(dbConnection.connection).getAll(page, limit) if not actives else AuthorRepository(dbConnection.connection).getAllActives(page, limit)
+            repo_response: RepositoryResponse = BookRepository(dbConnection.connection).getAll(page, limit) if not actives else BookRepository(dbConnection.connection).getAllActives(page, limit)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")

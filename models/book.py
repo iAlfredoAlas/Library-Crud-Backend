@@ -2,10 +2,10 @@
 from pydantic import BaseModel
 from datetime import date
 #Import instances
-from author import Author
-from editorial import Editorial
-from genre import Genre
-from rack import Rack
+from models.author import Author
+from models.editorial import Editorial
+from models.genre import Genre
+from models.rack import Rack
 
 #Create model to Book object
 class Book(BaseModel):
