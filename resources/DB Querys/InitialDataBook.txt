@@ -1,0 +1,33 @@
+use sql9615611;
+
+INSERT INTO Book (idBook, bookName, publicationDate, totalPague, quantityStock, bookCover, statusBook, idAuthor, idEditorial, idGenre, idRack)
+VALUES
+(1, 'The Catcher in the Rye', '1951-07-16', 10, 100, '', TRUE, 1, 1, 1, 1),
+(2, '1984', '1949-06-08', 15, 80, '', TRUE, 2, 2, 2, 2),
+(3, 'To Kill a Mockingbird', '1960-07-11', 12, 120, '', TRUE, 3, 3, 3, 3),
+(4, 'Pride and Prejudice', '1813-01-28', 8, 150, '', TRUE, 4, 4, 4, 4),
+(5, 'The Great Gatsby', '1925-04-10', 11, 90, '', TRUE, 5, 5, 5, 5),
+(6, 'One Hundred Years of Solitude', '1967-05-30', 20, 70, '', TRUE, 6, 6, 6, 6),
+(7, 'The Hobbit', '1937-09-21', 14, 110, '', TRUE, 7, 7, 7, 7),
+(8, 'The Lord of the Rings', '1954-07-29', 30, 50, '', TRUE, 8, 7, 7, 7),
+(9, 'Harry Potter and the Philosopher''s Stone', '1997-06-26', 18, 100, '', TRUE, 9, 8, 8, 8),
+(10, 'Animal Farm', '1945-08-17', 9, 130, '', TRUE, 10, 9, 2, 9),
+(11, 'The Adventures of Huckleberry Finn', '1884-12-10', 10, 90, '', TRUE, 11, 10, 10, 10),
+(12, 'Brave New World', '1932-10-27', 13, 75, '', TRUE, 12, 11, 11, 11),
+(13, 'The Picture of Dorian Gray', '1890-07-01', 11, 85, '', TRUE, 13, 12, 12, 12),
+(14, 'The Road', '2006-09-26', 17, 60, '', TRUE, 14, 13, 13, 13),
+(15, 'The Hitchhiker''s Guide to the Galaxy', '1979-10-12', 16, 70, '', TRUE, 15, 14, 14, 14),
+(16, 'Crime and Punishment', '1866-01-01', 12, 95, '', TRUE, 16, 15, 15, 15),
+(17, 'Wuthering Heights', '1847-12-29', 10, 120, '', TRUE, 17, 16, 4, 16),
+(19, 'The Brothers Karamazov', '1880-11-26', 22, 60, '', TRUE, 19, 18, 15, 18),
+(20, 'The Odyssey', '1880-11-26', 7, 200, '', TRUE, 20, 19, 17, 19),
+(21, 'Frankenstein', '1818-01-01', 9, 140, '', TRUE, 21, 20, 4, 20),
+(22, 'Alice''s Adventures in Wonderland', '1865-11-26', 10, 110, '', TRUE, 22, 21, 18, 21),
+(23, 'The Count of Monte Cristo', '1844-01-28', 16, 90, '', TRUE, 23, 22, 15, 22),
+(24, 'Les Misérables', '1862-01-01', 24, 50, '', TRUE, 24, 23, 15, 23),
+(25, 'Gone with the Wind', '1936-06-30', 19, 70, '', TRUE, 25, 24, 19, 24),
+(26, 'The Adventures of Sherlock Holmes', '1892-10-14', 12, 100, '', TRUE, 26, 25, 20, 25),
+(27, 'The Three Musketeers', '1844-03-14', 15, 80, '', TRUE, 27, 26, 15, 26),
+(28, 'Little Women', '1868-09-30', 8, 130, '', TRUE, 28, 27, 21, 27),
+(29, 'The Wind in the Willows', '1908-10-08', 10, 120, '', TRUE, 29, 28, 22, 28),
+(30, 'Anne of Green Gables', '1908-06-01', 7, 150, '', TRUE, 30, 29, 23, 29);
