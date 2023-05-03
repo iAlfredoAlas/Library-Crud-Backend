@@ -11,7 +11,6 @@ class EditorialService:
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
-            print(actives)
             repo_response: RepositoryResponse = EditorialRepository(dbConnection.connection).getAll(page, limit) if not actives else EditorialRepository(dbConnection.connection).getAllActives(page, limit)
             return repo_response
         else: 
