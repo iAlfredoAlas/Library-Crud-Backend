@@ -24,11 +24,11 @@ class BookRepository:
                 "totalPague": book[3],
                 "quantityStock": book[4],
                 "bookCover": book[5],
-                "idAuthor": book[6],
-                "idEditorial": book[7],
-                "idGenre": book[8],
-                "idRack": book[9],
-
+                "statusBook": book[6],
+                "idAuthor": book[7],
+                "idEditorial": book[8],
+                "idGenre": book[9],
+                "idRack": book[10],
             }
             for book in rows
         ]
@@ -42,17 +42,24 @@ class BookRepository:
 
         rows = cursor.fetchall()
 
-        editorials = [
+        books = [
             {
-                "idEditorial": editorial[0],
-                "nameEditorial": editorial[1],
-                "dateAdd": str(editorial[2]),
-                "statusEditorial": editorial[3]
+                "idBook": book[0],
+                "bookName": book[1],
+                "publicationDate": str(book[2]),
+                "totalPague": book[3],
+                "quantityStock": book[4],
+                "bookCover": book[5],
+                "statusBook": book[6],
+                "idAuthor": book[7],
+                "idEditorial": book[8],
+                "idGenre": book[9],
+                "idRack": book[10],
             }
-            for editorial in rows
+            for book in rows
         ]
         
-        return RepositoryResponse(editorials)
+        return RepositoryResponse(books)
     
     def getById(self, idEditorial: int):
         cursor = self.connection.cursor()

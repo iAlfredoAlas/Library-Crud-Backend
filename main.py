@@ -1,6 +1,8 @@
 #FastAPI imports
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+
 
 #Implementación Swagger
 from fastapi.openapi.utils import get_openapi
@@ -23,6 +25,16 @@ app.include_router(Author)
 app.include_router(Editorial)
 app.include_router(Employee)
 app.include_router(User)
+
+# Configurar el middleware CORS para permitir todas las solicitudes
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 #Swagger documentation
 @app.get("/openapi.json", include_in_schema=False)
