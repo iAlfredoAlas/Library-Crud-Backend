@@ -15,6 +15,7 @@ from controllers.AuthorController import AuthorRouter as Author
 from controllers.EditorialController import EditorialRouter as Editorial
 from controllers.EmployeeController import EmployeeRouter as Employee
 from controllers.UserController import UserRouter as User
+from controllers.BookController import BookRouter as Book
 
 
 #Instancias y routes
@@ -25,6 +26,7 @@ app.include_router(Author)
 app.include_router(Editorial)
 app.include_router(Employee)
 app.include_router(User)
+app.include_router(Book)
 
 # Configurar el middleware CORS para permitir todas las solicitudes
 origins = ["*"]
