@@ -11,6 +11,7 @@ class Reserve:
 
     idReservation: int = 0
     dateReservation: date = date(2023, 1, 1)
+    statusReserve: bool = True
     idBook: int = 0
     book: Book = None
     idEmployee: int = 0
