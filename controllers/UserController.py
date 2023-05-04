@@ -22,7 +22,7 @@ async def getUser(page: Optional[int] = 1, limit: Optional[int] = 10, actives: O
         return JSONResponse(userResult.error_message, status_code=400)
 
 #Controller to get user by id    
-@UserRouter.get("/User/{idUSer}", tags=["User"])
+@UserRouter.get("/User/{idUser}", tags=["User"])
 async def getUsersById(idUser: int):
     
     userResult:RepositoryResponse = await UserService.getUserById(idUser)
