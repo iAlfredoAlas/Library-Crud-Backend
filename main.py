@@ -18,7 +18,6 @@ from controllers.UserController import UserRouter as User
 from controllers.BookController import BookRouter as Book
 from controllers.ReserveController import ReserveRouter as Reserve
 from controllers.JWTController import JWTRouter as JWT
-from controllers.JWTController import validate_token
 from dotenv import load_dotenv
 
 
