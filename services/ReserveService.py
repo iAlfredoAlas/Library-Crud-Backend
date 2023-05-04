@@ -59,7 +59,7 @@ class ReserveService:
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
 
     #Delete Book    
-    async def deleteBook(idReservation: int):
+    async def deleteReserve(idReservation: int):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
@@ -70,7 +70,7 @@ class ReserveService:
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
 
     #Active Book    
-    async def activeBook(idReservation: int):
+    async def activeReserve(idReservation: int):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
