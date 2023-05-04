@@ -17,6 +17,9 @@ from controllers.EmployeeController import EmployeeRouter as Employee
 from controllers.UserController import UserRouter as User
 from controllers.BookController import BookRouter as Book
 from controllers.ReserveController import ReserveRouter as Reserve
+from controllers.JWTController import JWTRouter as JWT
+from controllers.JWTController import validate_token
+from dotenv import load_dotenv
 
 
 #Instancias y routes
@@ -29,6 +32,31 @@ app.include_router(Employee)
 app.include_router(User)
 app.include_router(Book)
 app.include_router(Reserve)
+app.include_router(JWT)
+
+load_dotenv()
+
+async def jwtMiddleware(request: Request, call_next):  
+    
+    endpoints = ["Genre", "Author", "Book", "Editorial", "Rack", "User", "Employee"]
+
+    for endpoint in endpoints:
+        if endpoint in str( request.url):
+
+            auth_header = request.headers.get("Authorization")
+            if auth_header:
+                response = validate_token(auth_header.split(" ")[1])
+                if not isinstance(response, JSONResponse):
+                    return await call_next(request)
+                else:
+                    return JSONResponse(content={"error":"Necesita Autenticarse"}, status_code=401)
+            else:
+                return JSONResponse(content={"error":"Necesita Autenticarse"}, status_code=401)
+
+    return await call_next(request)
+    
+
+app.middleware("http")(jwtMiddleware)
 
 # Configurar el middleware CORS para permitir todas las solicitudes
 origins = ["*"]
