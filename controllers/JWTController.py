@@ -1,9 +1,13 @@
 from jwt import encode, decode, exceptions
 from datetime import datetime, timedelta
 from os import getenv
+import mysql.connector
 from fastapi.responses import JSONResponse
 from fastapi import APIRouter, Header
 from pydantic import BaseModel, EmailStr
+
+def __init__(self, connection):
+        self.connection = connection
 
 #Create route
 JWTRouter = APIRouter()
@@ -30,8 +34,13 @@ class UserAuth(BaseModel):
     carnet: str
 
 @JWTRouter.post("/login", tags=["Authentication"])
-def login(User: UserAuth):
-    if(User.userName=="Alexis"):
+def login(self, User: UserAuth):
+    
+    cursor = self.connection.cursor()
+    cursor.execute("SELECT COUNT(*) as count_employee FROM Employee WHERE nameEmployee = %s AND employeeNumber = %s", (User.userName, User.carnet))
+    result = cursor.fetchone()
+
+    if(result[0] == 1):
         return write_token(User.dict())
     else:
         return JSONResponse(content={"error": "Usuario not found"}, status_code=404)
