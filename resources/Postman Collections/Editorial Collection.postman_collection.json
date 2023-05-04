@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "19d6bc16-672e-4656-8011-1994fcf498ce",
+		"name": "Editorial Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Editorial",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/Editorial?page=1&limit=10&actives=True",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"Editorial"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"description": "Pagina de datos"
+						},
+						{
+							"key": "limit",
+							"value": "10",
+							"description": "Limite de datos por pagina"
+						},
+						{
+							"key": "actives",
+							"value": "True",
+							"description": "Muestra solo generos activos si es True, muestra todos si es es Fasle o si no se envia el parametro \"actives\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Editorial by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/Editorial/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"Editorial",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Editorial",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idEditorial\": 1,\r\n    \"nameEditorial\": \"Editorial 31\",\r\n    \"dateAdd\": \"2000-01-01\",\r\n    \"statusEditorial\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/Editorial",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"Editorial"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Editorial",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idEditorial\": 1,\r\n    \"nameEditorial\": \"test 1 edit\",\r\n    \"dateAdd\": \"2000-01-01\",\r\n    \"statusEditorial\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/Editorial/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"Editorial",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Editorial",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/Editorial/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"Editorial",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Activate Editorial",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/Editorial/Activate/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"Editorial",
+						"Activate",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,120 @@
+/*================================================================================*/
+/* DDL SCRIPT                                                                     */
+/*================================================================================*/
+/*  Title    :                                                                    */
+/*  FileName : LibraryModel.ecm                                                   */
+/*  Platform : MySQL 5.6                                                          */
+/*  Version  : Concept                                                            */
+/*  Date     : martes, 2 de mayo de 2023                                          */
+/*================================================================================*/
+/*================================================================================*/
+/* CREATE TABLES                                                                  */
+/*================================================================================*/
+
+CREATE TABLE Author (
+  idAuthor INT AUTO_INCREMENT NOT NULL,
+  nameAuthor VARCHAR(40) NOT NULL,
+  countryBirth VARCHAR(20) NOT NULL,
+  dateBorn DATE NOT NULL,
+  statusAuthor BOOL NOT NULL,
+  CONSTRAINT PK_Author PRIMARY KEY (idAuthor)
+);
+
+CREATE TABLE Editorial (
+  idEditorial INT AUTO_INCREMENT NOT NULL,
+  nameEditorial VARCHAR(40) NOT NULL,
+  dateAdd DATE NOT NULL,
+  statusEditorial BOOL NOT NULL,
+  CONSTRAINT PK_Editorial PRIMARY KEY (idEditorial)
+);
+
+CREATE TABLE Genre (
+  idGenre INT AUTO_INCREMENT NOT NULL,
+  nameGenre VARCHAR(40) NOT NULL,
+  statusGenre BOOL NOT NULL,
+  CONSTRAINT PK_Genre PRIMARY KEY (idGenre)
+);
+
+CREATE TABLE Rack (
+  idRack INT AUTO_INCREMENT NOT NULL,
+  nameRack VARCHAR(40) NOT NULL,
+  levels INT NOT NULL,
+  statusRack BOOL NOT NULL,
+  CONSTRAINT PK_Rack PRIMARY KEY (idRack)
+);
+
+CREATE TABLE Book (
+  idBook INT AUTO_INCREMENT NOT NULL,
+  bookName VARCHAR(40) NOT NULL,
+  publicationDate DATE NOT NULL,
+  totalPague INT NOT NULL,
+  quantityStock INT NOT NULL,
+  bookCover TEXT NOT NULL,
+  statusBook BOOL NOT NULL,
+  idAuthor INT NOT NULL,
+  idEditorial INT NOT NULL,
+  idGenre INT NOT NULL,
+  idRack INT NOT NULL,
+  CONSTRAINT PK_Book PRIMARY KEY (idBook)
+);
+
+CREATE TABLE Employee (
+  idEmployee INT AUTO_INCREMENT NOT NULL,
+  nameEmployee VARCHAR(40) NOT NULL,
+  employeeNumber VARCHAR(40) NOT NULL,
+  statusEmployee BOOL NOT NULL,
+  CONSTRAINT PK_Employee PRIMARY KEY (idEmployee)
+);
+
+CREATE TABLE User (
+  idUser INT AUTO_INCREMENT NOT NULL,
+  nameUser VARCHAR(40) NOT NULL,
+  carnetUser VARCHAR(10) NOT NULL,
+  emailUser VARCHAR(40) NOT NULL,
+  phoneUser VARCHAR(11) NOT NULL,
+  statusUser BOOL NOT NULL,
+  CONSTRAINT PK_User PRIMARY KEY (idUser)
+);
+
+CREATE TABLE Reserve (
+  idReservation INT AUTO_INCREMENT NOT NULL,
+  dateReservation DATE NOT NULL,
+  statusReservation BOOL NOT NULL,
+  idBook INT NOT NULL,
+  idEmployee INT NOT NULL,
+  idUser INT NOT NULL,
+  CONSTRAINT PK_Reserve PRIMARY KEY (idReservation)
+);
+
+/*================================================================================*/
+/* CREATE FOREIGN KEYS                                                            */
+/*================================================================================*/
+
+ALTER TABLE Book
+  ADD CONSTRAINT FK_Book_Author
+  FOREIGN KEY (idAuthor) REFERENCES Author (idAuthor);
+
+ALTER TABLE Book
+  ADD CONSTRAINT FK_Book_Editorial
+  FOREIGN KEY (idEditorial) REFERENCES Editorial (idEditorial);
+
+ALTER TABLE Book
+  ADD CONSTRAINT FK_Book_Genre
+  FOREIGN KEY (idGenre) REFERENCES Genre (idGenre);
+
+ALTER TABLE Book
+  ADD CONSTRAINT FK_Book_Rack
+  FOREIGN KEY (idRack) REFERENCES Rack (idRack);
+
+ALTER TABLE Reserve
+  ADD CONSTRAINT FK_Reserve_Book
+  FOREIGN KEY (idBook) REFERENCES Book (idBook);
+
+ALTER TABLE Reserve
+  ADD CONSTRAINT FK_Reserve_Employee
+  FOREIGN KEY (idEmployee) REFERENCES Employee (idEmployee);
+
+ALTER TABLE Reserve
+  ADD CONSTRAINT FK_Reserve_User
+  FOREIGN KEY (idUser) REFERENCES User (idUser);
+
