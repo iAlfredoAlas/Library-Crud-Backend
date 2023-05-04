@@ -1,33 +1,19 @@
+#Imports
+from pydantic import BaseModel
+from datetime import date
+
+#Import instances
+from models.book import Book
+from models.employee import Employee
+from models.user import User
+
 class Reserve:
-    def __init__(self, idReservation, idBook, idEmployee, idUser):
-        self.idReservation = idReservation
-        self.idBook = idBook
-        self.idEmployee = idEmployee
-        self.idUser = idUser
 
-    def getIdReservation(self):
-        return self.idReservation
-
-    def getIdBook(self):
-        return self.idBook
-
-    def getIdEmployee(self):
-        return self.idEmployee
-
-    def getIdUser(self):
-        return self.idUser
-
-    def setIdReservation(self, idReservation):
-        self.idReservation = idReservation
-
-    def setIdBook(self, idBook):
-        self.idBook = idBook
-
-    def setIdEmployee(self, idEmployee):
-        self.idEmployee = idEmployee
-
-    def setIdUser(self, idUser):
-        self.idUser = idUser
-
-    def __str__(self):
-        return f"Reserve({self.idReservation}, {self.idBook}, {self.idEmployee}, {self.idUser})"
+    idReservation: int = 0
+    dateReservation: date = date(2023, 1, 1)
+    idBook: int = 0
+    book: Book = None
+    idEmployee: int = 0
+    employee: Employee = None
+    idUser: int = 0
+    user: User = None

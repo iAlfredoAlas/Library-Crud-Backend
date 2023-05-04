@@ -78,6 +78,7 @@ CREATE TABLE User (
 
 CREATE TABLE Reserve (
   idReservation INT AUTO_INCREMENT NOT NULL,
+  dateReservation DATE NOT NULL,
   statusReservation BOOL NOT NULL,
   idBook INT NOT NULL,
   idEmployee INT NOT NULL,
