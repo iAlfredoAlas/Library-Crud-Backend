@@ -1,18 +1,18 @@
 {
 	"info": {
-		"_postman_id": "5d2b3564-8e34-4268-9914-1d7a4cdf2179",
-		"name": "Editorial Collection",
+		"_postman_id": "a7896ee9-f8ef-4482-b23e-8e69cd3a4500",
+		"name": "Reserve Collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25094058"
 	},
 	"item": [
 		{
-			"name": "Get Editorial",
+			"name": "Get Reserves",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://libraryapi-main.onrender.com/Editorial?page=1&limit=10&actives=True",
+					"raw": "https://libraryapi-main.onrender.com/Reserve?page=1&limit=10&active=True",
 					"protocol": "https",
 					"host": [
 						"libraryapi-main",
@@ -20,7 +20,7 @@
 						"com"
 					],
 					"path": [
-						"Editorial"
+						"Reserve"
 					],
 					"query": [
 						{
@@ -34,9 +34,9 @@
 							"description": "Limite de datos por pagina"
 						},
 						{
-							"key": "actives",
+							"key": "active",
 							"value": "True",
-							"description": "Muestra solo generos activos si es True, muestra todos si es es Fasle o si no se envia el parametro \"actives\""
+							"description": "Muestra solo generos activos si es True, muestra todos si es es Fasle o si no se envia el parametro \"active\""
 						}
 					]
 				}
@@ -44,12 +44,12 @@
 			"response": []
 		},
 		{
-			"name": "Get Editorial by Id",
+			"name": "Get Reserve by Id",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://libraryapi-main.onrender.com/Editorial/1",
+					"raw": "https://libraryapi-main.onrender.com/Reserve/1",
 					"protocol": "https",
 					"host": [
 						"libraryapi-main",
@@ -57,7 +57,7 @@
 						"com"
 					],
 					"path": [
-						"Editorial",
+						"Reserve",
 						"1"
 					]
 				}
@@ -65,13 +65,13 @@
 			"response": []
 		},
 		{
-			"name": "Post Editorial",
+			"name": "Post Reserve",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idEditorial\": 1,\r\n    \"nameEditorial\": \"Editorial 31\",\r\n    \"dateAdd\": \"2000-01-01\",\r\n    \"statusEditorial\": 1\r\n}",
+					"raw": "{\r\n        \"idReservation\": 1,\r\n        \"dateReservation\": \"2023-04-20\",\r\n        \"statusReserve\": 1,\r\n        \"idBook\": 4,\r\n        \"idEmployee\": 2,\r\n        \"idUser\": 20\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -79,7 +79,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://libraryapi-main.onrender.com/Editorial",
+					"raw": "https://libraryapi-main.onrender.com/Reserve",
 					"protocol": "https",
 					"host": [
 						"libraryapi-main",
@@ -87,20 +87,20 @@
 						"com"
 					],
 					"path": [
-						"Editorial"
+						"Reserve"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Put Editorial",
+			"name": "Put Reserve",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idEditorial\": 1,\r\n    \"nameEditorial\": \"test 1 edit\",\r\n    \"dateAdd\": \"2000-01-01\",\r\n    \"statusEditorial\": 1\r\n}",
+					"raw": "{\r\n        \"idReservation\": 1,\r\n        \"dateReservation\": \"2023-04-20\",\r\n        \"statusReserve\": 1,\r\n        \"idBook\": 4,\r\n        \"idEmployee\": 2,\r\n        \"idUser\": 20\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -108,7 +108,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://libraryapi-main.onrender.com/Editorial/1",
+					"raw": "https://libraryapi-main.onrender.com/Reserve/31",
 					"protocol": "https",
 					"host": [
 						"libraryapi-main",
@@ -116,20 +116,20 @@
 						"com"
 					],
 					"path": [
-						"Editorial",
-						"1"
+						"Reserve",
+						"31"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Delete Editorial",
+			"name": "Delete Reserve",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://libraryapi-main.onrender.com/Editorial/1",
+					"raw": "https://libraryapi-main.onrender.com/Reserve/31",
 					"protocol": "https",
 					"host": [
 						"libraryapi-main",
@@ -137,20 +137,20 @@
 						"com"
 					],
 					"path": [
-						"Editorial",
-						"1"
+						"Reserve",
+						"31"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Activate Editorial",
+			"name": "Activate Reserve",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "https://libraryapi-main.onrender.com/Editorial/Activate/1",
+					"raw": "https://libraryapi-main.onrender.com/Reserve/Activate/31",
 					"protocol": "https",
 					"host": [
 						"libraryapi-main",
@@ -158,9 +158,9 @@
 						"com"
 					],
 					"path": [
-						"Editorial",
+						"Reserve",
 						"Activate",
-						"1"
+						"31"
 					]
 				}
 			},

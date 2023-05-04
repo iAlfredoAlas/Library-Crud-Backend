@@ -12,15 +12,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/Author?page=1&limit=150&actives=True",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Author?page=1&limit=10&actives=False",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Author"
 					],
@@ -31,11 +29,11 @@
 						},
 						{
 							"key": "limit",
-							"value": "150"
+							"value": "10"
 						},
 						{
 							"key": "actives",
-							"value": "True"
+							"value": "False"
 						}
 					]
 				}
@@ -48,18 +46,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/Author/31",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Author/2",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Author",
-						"31"
+						"2"
 					]
 				}
 			},
@@ -80,15 +76,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/Author",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Author",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Author"
 					]
@@ -111,15 +105,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/Author/31",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Author/31",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Author",
 						"31"
@@ -134,18 +126,16 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/Author/31",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Author/1",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Author",
-						"31"
+						"1"
 					]
 				}
 			},
@@ -157,15 +147,13 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/Author/Activate/31",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Author/Activate/31",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Author",
 						"Activate",

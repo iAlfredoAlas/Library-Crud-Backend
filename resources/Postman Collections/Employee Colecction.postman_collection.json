@@ -12,15 +12,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/Employee?page=1&limit=10&actives=True",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Employee?page=1&limit=10&actives=True",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Employee"
 					],
@@ -48,15 +46,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/Employee/1",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Employee/1",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Employee",
 						"1"
@@ -80,15 +76,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/Employee",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Employee",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Employee"
 					]
@@ -111,15 +105,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/Employee/31",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Employee/31",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Employee",
 						"31"
@@ -134,15 +126,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/Employee/31",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Employee/31",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Employee",
 						"31"
@@ -157,15 +147,13 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/Employee/Activate/31",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Employee/Activate/31",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Employee",
 						"Activate",
