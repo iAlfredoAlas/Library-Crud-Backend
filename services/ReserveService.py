@@ -5,7 +5,7 @@ from models.repositoryResponse import RepositoryResponse
 from models.reserve import Reserve
 from datetime import date
 
-#Class of BookService
+#Class of ReserveService
 class ReserveService:
 
     #Pagination to Reserve
@@ -23,7 +23,7 @@ class ReserveService:
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
-            repo_response: RepositoryResponse = ReserveRepository(dbConnection.connection).getById(idReservation)
+            repo_response: RepositoryResponse = ReserveRepository(dbConnection.connection).getReserveById(idReservation)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
@@ -35,23 +35,19 @@ class ReserveService:
         if dbConnection.success:
 
             #Validar si la reserve es correcto
-            if not Reserve.dateReservation.split():
-                return RepositoryResponse(success=False, error_message=f"No contiene fecha o va vacio")
+            #if not Reserve.dateReservation.split():
+             #   return RepositoryResponse(success=False, error_message=f"No contiene fecha o va vacio")
             
             repo_response: RepositoryResponse = ReserveRepository(dbConnection.connection).insert(Reserve)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
 
-    #Update Books    
+    #Update Reserve    
     async def updateReserve(idReservation: int, Reserve: Reserve):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
-
-            #Validar si el book es correcto
-            if not Reserve.dateReservation.split():
-                return RepositoryResponse(success=False, error_message=f"No contiene fecha o va vacio")
             
             repo_response: RepositoryResponse = ReserveRepository(dbConnection.connection).update(idReservation, Reserve)
             return repo_response

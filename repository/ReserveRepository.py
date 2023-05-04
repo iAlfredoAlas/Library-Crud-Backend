@@ -76,14 +76,14 @@ class ReserveRepository:
         return RepositoryResponse(reserves)
     
     #Method getById Reserve
-    def getById(self, idReserve: int):
+    def getReserveById(self, idReservation: int):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT r.idReservation, r.dateReservation, r.statusReservation, r.idBook , b.bookName, r.idEmployee, e.nameEmployee, r.idUser, u.nameUser FROM Reserve r LEFT JOIN Book b ON r.idBook = b.idBook LEFT JOIN Employee e ON r.idEmployee = e.idEmployee LEFT JOIN User u ON r.idUser = u.idUser WHERE idReservation = %s LIMIT %s OFFSET %s;", (limit, offset))
+        cursor.execute("SELECT r.idReservation, r.dateReservation, r.statusReservation, r.idBook , b.bookName, r.idEmployee, e.nameEmployee, r.idUser, u.nameUser FROM Reserve r LEFT JOIN Book b ON r.idBook = b.idBook LEFT JOIN Employee e ON r.idEmployee = e.idEmployee LEFT JOIN User u ON r.idUser = u.idUser WHERE idReservation = %s", (idReservation,))
         row = cursor.fetchone()
         if row:
             reserves = [
                 {
-                "idReserve": row[0],
+                "idReservation": row[0],
                 "dateReservation": str(row[1]),
                 "statusReserve": row[2],
                 "idBook": row[3],
@@ -120,17 +120,17 @@ class ReserveRepository:
                 return RepositoryResponse(success=False, error_message="Can not insert Reserve, %s" % str(error))
             
     #Method update Authrs
-    def update(self, idReserve: int, reserve: Reserve):
+    def update(self, idReservation: int, reserve: Reserve):
         cursor = self.connection.cursor()
         try:
             # Verificar si existe un autor con el mismo nombre
-            cursor.execute("SELECT * FROM Reserve WHERE dateReservation = %s AND idReserve != %s", (reserve.dateReservation, idReserve))
+            cursor.execute("SELECT * FROM Reserve WHERE dateReservation = %s AND idReservation != %s", (reserve.dateReservation, idReservation))
             result = cursor.fetchone()
             if result is not None:
-                return RepositoryResponse(success=False, error_message="A reserve with this name already exists")
+                return RepositoryResponse(success=False, error_message="A reserve with this date already exists")
 
             #Update Reserve
-            cursor.execute("UPDATE Reserve SET dateReservatio = %s, statusReservation = %s, idBook = %s, idEmployee = %s, idUser = %s WHERE idReserve = %s", (reserve.dateReservation, reserve.statusReserve, reserve.idBook, reserve.idEmployee, reserve.idUser, reserve.idReservation))
+            cursor.execute("UPDATE Reserve SET dateReservation = %s, statusReservation = %s, idBook = %s, idEmployee = %s, idUser = %s WHERE idReservation = %s", (reserve.dateReservation, reserve.statusReserve, reserve.idBook, reserve.idEmployee, reserve.idUser, reserve.idReservation))
             self.connection.commit()
             if cursor.rowcount == 0:
                 return RepositoryResponse(success=False, error_message="Reserve didn't change or reserve with id %s not found" % reserve.idReservation)

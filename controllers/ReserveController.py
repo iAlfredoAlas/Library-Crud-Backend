@@ -34,7 +34,7 @@ async def getReservesById(idReservation: int):
     
 #Controller to post new Reserve    
 @ReserveRouter.post("/Reserve", tags=["Reserve"])
-async def postReserve(Reserve: Reserve):
+async def postReserves(Reserve: Reserve):
     ReserveResult:RepositoryResponse = await ReserveService.insertReserve(Reserve)
     
     if ReserveResult.success:
@@ -58,16 +58,16 @@ async def deleteReserve(idReservation: int):
     ReserveResult:RepositoryResponse = await ReserveService.deleteReserve(idReservation)
     
     if ReserveResult.success:
-        return JSONResponse(f"Reserve with Id {idReservation} successfully deleted")
+        return JSONResponse(f"Reserve {idReservation} successfully deleted")
     else:
         return JSONResponse(ReserveResult.error_message, status_code=400)
     
-#Controller to activate Reserve    
+#Controller to activate Reserve   
 @ReserveRouter.put("/Reserve/Activate/{idReservation}", tags=["Reserve"])
 async def activateReserve(idReservation: int):
     ReserveResult:RepositoryResponse = await ReserveService.activeReserve(idReservation)
     
     if ReserveResult.success:
-        return JSONResponse(f"Reserve with Id {idReservation} successfully activated")
+        return JSONResponse(f"Reserve {idReservation} successfully activated")
     else:
         return JSONResponse(ReserveResult.error_message, status_code=400)

@@ -7,7 +7,7 @@ from models.book import Book
 from models.employee import Employee
 from models.user import User
 
-class Reserve:
+class Reserve(BaseModel):
 
     idReservation: int = 0
     dateReservation: date = date(2023, 1, 1)
