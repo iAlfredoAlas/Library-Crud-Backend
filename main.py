@@ -2,7 +2,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-
+from services.JWTService import JWTervice
 
 #Implementación Swagger
 from fastapi.openapi.utils import get_openapi
@@ -44,11 +44,15 @@ async def jwtMiddleware(request: Request, call_next):
 
             auth_header = request.headers.get("Authorization")
             if auth_header:
-                response = validate_token(auth_header.split(" ")[1])
-                if not isinstance(response, JSONResponse):
-                    return await call_next(request)
+                response = await JWTervice.Validate(auth_header.split(" ")[1])
+                
+                if response.content is not None:
+                    if not "token" in str(response.content):
+                        return await call_next(request)
+                    else:
+                        return JSONResponse(content={"error":"Necesita Autenticarse"}, status_code=401)        
                 else:
-                    return JSONResponse(content={"error":"Necesita Autenticarse"}, status_code=401)
+                    return JSONResponse(content={"error":"Error en la validación"}, status_code=401)    
             else:
                 return JSONResponse(content={"error":"Necesita Autenticarse"}, status_code=401)
 
