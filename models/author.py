@@ -8,7 +8,7 @@ from typing import Optional
 #Create model to Author object
 class Author(BaseModel):
 
-    idAuthor: int = 0
+    idAuthor: Optional [int] =  None
     nameAuthor: str = ""
     countryBirth: str = ""
     dateBorn: date = date(1700, 1, 1)
