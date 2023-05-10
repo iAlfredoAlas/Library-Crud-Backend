@@ -110,11 +110,11 @@ class AuthorRepository:
         cursor = self.connection.cursor()
         try:
              # Verificar si existe un author con ese idAuthor
-            cursor.execute("SELECT idAuthor FROM author WHERE idAuthor = %s and statusAuthor = 0", (idAuthor,))
+            cursor.execute("SELECT idAuthor FROM Author WHERE idAuthor = %s and statusAuthor = 0", (idAuthor,))
             result = cursor.fetchone()
             if result is not None:
                 return RepositoryResponse(success=False, error_message="A author with this Id has already been deleted")
-
+            
             cursor.execute("UPDATE Author SET statusAuthor = 0 WHERE idAuthor = %s", (idAuthor,))
             if cursor.rowcount > 0:
                 self.connection.commit()
@@ -130,7 +130,7 @@ class AuthorRepository:
         cursor = self.connection.cursor()
         try:
              # Verificar si existe un author con ese idAuthor
-            cursor.execute("SELECT idAuthor FROM author WHERE idAuthor = %s and statusAuthor = 1", (idAuthor,))
+            cursor.execute("SELECT idAuthor FROM Author WHERE idAuthor = %s and statusAuthor = 1", (idAuthor,))
             result = cursor.fetchone()
             if result is not None:
                 return RepositoryResponse(success=False, error_message="A author with this Id has already been Activate")
