@@ -31,4 +31,14 @@ VALUES
 ("Natalia Nieto", "NN080803", 1),
 ("Gustavo Gómez", "GG100725", 1),
 ("María Martínez", "MM100699", 1),
-("Francisco Franco", "FF120857", 1);
+("Francisco Franco", "FF120857", 1)
+('Alfredo Alas', 'AM100617', 1),
+('Alexis Beltran', 'MB101421', 1),
+('Giselle Argueta', 'AP100321', 1),
+('Samantha Elias', 'EA100320', 1),
+('Caleb Hernandez', 'HR100621', 1),
+('Jason MArtinez', 'MO100421', 1),
+('Guillermo Minero', 'MA101321', 1),
+('Oscar Minero', 'MF100712', 1),
+('Chritian Pena', 'PV100521', 1),
+('Claudia Ramirez', 'RM102021', 1);
