@@ -1,4 +1,5 @@
 import mysql.connector
+from os import getenv
 
 class DbConnection:
     def __init__(self, connection=None, success=False, error_message=None):
@@ -28,7 +29,7 @@ class DbContext:
             return DbConnection(success=False, error_message=str(error))
     
     def setDefaultContext(self):
-        self.host = 'sql9.freesqldatabase.com'
-        self.user = 'sql9617075'
-        self.password = 'GxIVuTtakE'
-        self.database = 'sql9617075'
+        self.host = getenv("SERVER")
+        self.user = getenv("USER")
+        self.password = getenv("PASSWORD")
+        self.database = getenv("DATABASE")
