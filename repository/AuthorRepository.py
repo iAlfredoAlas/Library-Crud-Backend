@@ -20,7 +20,7 @@ class AuthorRepository:
         authors = [
             {
                 "idAuthor": author[0],
-                "nameAuhtor": author[1],
+                "nameAuthor": author[1],
                 "countryBirth": author[2],
                 "dateBorn": str(author[3]),
                 "statusAuthor": author[4]
@@ -40,7 +40,7 @@ class AuthorRepository:
         authors = [
             {
                 "idAuthor": author[0],
-                "nameAuhtor": author[1],
+                "nameAuthor": author[1],
                 "countryBirth": author[2],
                 "dateBorn": str(author[3]),
                 "statusAuthor": author[4]
