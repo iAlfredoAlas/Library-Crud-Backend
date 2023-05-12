@@ -28,7 +28,7 @@ class AuthorService:
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
 
-    #Insert Authors    
+   #Insert Authors    
     async def insertAuthor(Author: Author):
         dbConnection = DbContext().connect()
 
@@ -40,6 +40,11 @@ class AuthorService:
             if Author.dateBorn <= date(1700, 1, 1):
                 return RepositoryResponse(success=False, error_message=f"La fecha es incorrecta o es minima {Author.dateBorn}")
             
+             # Validar si la ciudad del autor no es vacio
+            if not Author.countryBirth.strip():
+                return RepositoryResponse(success=False, error_message="No se ha proporcionado un nombre válido")
+            
+        
             repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).insert(Author)
             return repo_response
         else: 
@@ -57,10 +62,15 @@ class AuthorService:
             if Author.dateBorn <= date(1700, 1, 1):
                 return RepositoryResponse(success=False, error_message=f"La fecha es incorrecta o es minima {Author.dateBorn}")
             
+              # Validar si la ciudad del autor no es vacio
+            if not Author.countryBirth.strip():
+                return RepositoryResponse(success=False, error_message="No se ha proporcionado un nombre válido")
+            
             repo_response: RepositoryResponse = AuthorRepository(dbConnection.connection).update(idAuthor, Author)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
+
 
     #Delete Author    
     async def deleteAuthor(idAuthor: int):
