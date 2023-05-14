@@ -3,6 +3,7 @@ from services.dbContext import DbContext
 from repository.UserRepository import UserRepository
 from models.repositoryResponse import RepositoryResponse
 from models.user import User
+import re
 
 #Class of UserService
 class UserService:
@@ -27,34 +28,57 @@ class UserService:
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
 
-    #Insert Users    
+   #Insert Users    
     async def insertUser(User: User):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
+            # Validar si el correo electrónico es válido
+            if not re.match(r"[^@]+@[^@]+\.[^@]+", User.emailUser):
+                return RepositoryResponse(success=False, error_message="Correo electrónico inválido")
 
-            #Validar si el autor es correcto
-            if not User.nameUser.split():
-                return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
+            # Validar si el nombre del usuario es correcto
+            if not User.nameUser.strip():
+                return RepositoryResponse(success=False, error_message="No se ha proporcionado un nombre de usuario válido")
+            
+            # Validar si el carnet del usuario no es vacio
+            if not User.carnetUser.strip():
+                return RepositoryResponse(success=False, error_message="No se ha proporcionado un carnet de usuario válido")
+            
+            # Validar si el numero de telefono es correcto
+            if not User.phoneUser.strip():
+                return RepositoryResponse(success=False, error_message="No se ha proporcionado un telefono  válido")
 
             repo_response: RepositoryResponse = UserRepository(dbConnection.connection).insert(User)
             return repo_response
-        else: 
+        else:
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
+        
 
     #Update Users    
     async def updateUser(idUser: int, User: User):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
+            # Validar si el correo electrónico es válido
+            if not re.match(r"[^@]+@[^@]+\.[^@]+", User.emailUser):
+                return RepositoryResponse(success=False, error_message="Correo electrónico inválido")
 
-            #Validar si el autor es correcto
-            if not User.nameUser.split():
-                return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
+            # Validar si el nombre del usuario es correcto
+            if not User.nameUser.strip():
+                return RepositoryResponse(success=False, error_message="No se ha proporcionado un nombre de usuario válido")
+            
+             # Validar si el carnet del usuario no es vacio
+            if not User.carnetUser.strip():
+                return RepositoryResponse(success=False, error_message="No se ha proporcionado un carnet de usuario válido")
+            
+            # Validar si el numero de telefono es correcto
+            if not User.phoneUser.strip():
+                return RepositoryResponse(success=False, error_message="No se ha proporcionado un telefono  válido")
 
             repo_response: RepositoryResponse = UserRepository(dbConnection.connection).update(idUser, User)
             return repo_response
-        else: 
+        else:
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
 
     #Delete User    

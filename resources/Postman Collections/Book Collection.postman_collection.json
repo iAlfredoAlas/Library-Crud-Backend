@@ -1,18 +1,18 @@
 {
 	"info": {
-		"_postman_id": "841f7d1d-3b57-4848-abdd-969b85916290",
-		"name": "Rack Collection",
+		"_postman_id": "916f7367-1b2f-458b-8fb7-5956eae9102f",
+		"name": "Book Collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25094058"
 	},
 	"item": [
 		{
-			"name": "Get Racks",
+			"name": "Get Books",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://libraryapi-main.onrender.com/Rack?page=1&limit=10&active=True",
+					"raw": "https://libraryapi-main.onrender.com/Book?page=1&limit=10&active=True",
 					"protocol": "https",
 					"host": [
 						"libraryapi-main",
@@ -20,7 +20,7 @@
 						"com"
 					],
 					"path": [
-						"Rack"
+						"Book"
 					],
 					"query": [
 						{
@@ -44,12 +44,12 @@
 			"response": []
 		},
 		{
-			"name": "Get Rack by Id",
+			"name": "Get Bookby Id",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://libraryapi-main.onrender.com/Rack/1",
+					"raw": "https://libraryapi-main.onrender.com/Book/1",
 					"protocol": "https",
 					"host": [
 						"libraryapi-main",
@@ -57,7 +57,7 @@
 						"com"
 					],
 					"path": [
-						"Rack",
+						"Book",
 						"1"
 					]
 				}
@@ -65,13 +65,13 @@
 			"response": []
 		},
 		{
-			"name": "Post Rack",
+			"name": "Post Book",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idRack\": 1,\r\n    \"nameRack\": \"k1\",\r\n    \"levels\": 4,\r\n    \"statusRack\": 1\r\n}",
+					"raw": "{\r\n    \"idBook\": 0,\r\n    \"bookName\": \"PruebasLibros2\",\r\n    \"publicationDate\": \"1700-01-01\",\r\n    \"totalPague\": \"200\",\r\n    \"quantityStock\": \"2\",\r\n    \"bookCover\": \"\",\r\n    \"statusBook\": true,\r\n    \"idAuthor\": 2,\r\n    \"author\": {\r\n        \"nameAuthor\": \"George R. R. Martin\"\r\n        },\r\n    \"idEditorial\": 1,\r\n    \"editorial\": {\r\n        \"nameEditorial\": \"Editorial 1\"\r\n        },\r\n    \"idGenre\": 1,\r\n    \"genre\": {\r\n        \"nameGenre\": \"Science Fiction\"\r\n    },\r\n    \"idRack\": 1,\r\n    \"rack\": {\r\n        \"nameRack\": \"a1\"\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -79,7 +79,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://libraryapi-main.onrender.com/Rack",
+					"raw": "https://libraryapi-main.onrender.com/Book",
 					"protocol": "https",
 					"host": [
 						"libraryapi-main",
@@ -87,20 +87,20 @@
 						"com"
 					],
 					"path": [
-						"Rack"
+						"Book"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Put Rack",
+			"name": "Put Book",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idRack\": 1,\r\n    \"nameRack\": \"k1\",\r\n    \"levels\": 4,\r\n    \"statusRack\": 1\r\n}",
+					"raw": "{\r\n  \"bookName\": \"PruebasLibros2\",\r\n  \"publicationDate\": \"1700-01-01\",\r\n  \"totalPague\": \"200\",\r\n  \"quantityStock\": \"2\",\r\n  \"bookCover\": \"\",\r\n  \"statusBook\": true,\r\n  \"idAuthor\": 2,\r\n  \"author\": {\r\n    \"nameAuthor\": \"George R. R. Martin\"\r\n  },\r\n  \"idEditorial\": 1,\r\n  \"editorial\": {\r\n    \"nameEditorial\": \"Editorial 1\"\r\n  },\r\n  \"idGenre\": 1,\r\n  \"genre\": {\r\n    \"nameGenre\": \"Science Fiction\"\r\n  },\r\n  \"idRack\": 1,\r\n  \"rack\": {\r\n    \"nameRack\": \"a1\"\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -108,7 +108,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://libraryapi-main.onrender.com/Rack/31",
+					"raw": "https://libraryapi-main.onrender.com/Book/31",
 					"protocol": "https",
 					"host": [
 						"libraryapi-main",
@@ -116,7 +116,7 @@
 						"com"
 					],
 					"path": [
-						"Rack",
+						"Book",
 						"31"
 					]
 				}
@@ -124,12 +124,12 @@
 			"response": []
 		},
 		{
-			"name": "Delete Rack",
+			"name": "Delete Book",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://libraryapi-main.onrender.com/Rack/31",
+					"raw": "https://libraryapi-main.onrender.com/Book/31",
 					"protocol": "https",
 					"host": [
 						"libraryapi-main",
@@ -137,7 +137,7 @@
 						"com"
 					],
 					"path": [
-						"Rack",
+						"Book",
 						"31"
 					]
 				}
@@ -145,12 +145,12 @@
 			"response": []
 		},
 		{
-			"name": "Activate Rack",
+			"name": "Activate Book",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "https://libraryapi-main.onrender.com/Rack/Activate/31",
+					"raw": "https://libraryapi-main.onrender.com/Book/Activate/31",
 					"protocol": "https",
 					"host": [
 						"libraryapi-main",
@@ -158,7 +158,7 @@
 						"com"
 					],
 					"path": [
-						"Rack",
+						"Book",
 						"Activate",
 						"31"
 					]

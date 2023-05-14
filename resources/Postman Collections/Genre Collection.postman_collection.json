@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "db0e728e-56e1-47e4-9f74-419c48817efb",
+		"_postman_id": "e0d798bb-ae04-4d27-ab07-27619d6b07b5",
 		"name": "Genre Collection",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25094058"
 	},
 	"item": [
 		{
@@ -11,15 +12,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/Genre?page=1&limit=10&actives=True",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Genre?page=1&limit=10&active=True",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Genre"
 					],
@@ -35,9 +34,9 @@
 							"description": "Limite de datos por pagina"
 						},
 						{
-							"key": "actives",
+							"key": "active",
 							"value": "True",
-							"description": "Muestra solo generos activos si es True, muestra todos si es es Fasle o si no se envia el parametro \"actives\""
+							"description": "Muestra solo generos activos si es True, muestra todos si es es Fasle o si no se envia el parametro \"active\""
 						}
 					]
 				}
@@ -50,15 +49,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/Genre/1",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Genre/1",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Genre",
 						"1"
@@ -82,15 +79,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/Genre",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Genre",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Genre"
 					]
@@ -113,15 +108,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/Genre/1",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Genre/1",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Genre",
 						"1"
@@ -136,15 +129,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/Genre/1",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Genre/1",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Genre",
 						"1"
@@ -159,15 +150,13 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/Genre/Activate/1",
-					"protocol": "http",
+					"raw": "https://libraryapi-main.onrender.com/Genre/Activate/1",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"libraryapi-main",
+						"onrender",
+						"com"
 					],
-					"port": "8000",
 					"path": [
 						"Genre",
 						"Activate",

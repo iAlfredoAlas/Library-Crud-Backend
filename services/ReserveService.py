@@ -28,15 +28,15 @@ class ReserveService:
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
         
-    #Insert Reserves    
+   #Insert Reserves    
     async def insertReserve(Reserve: Reserve):
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
 
             #Validar si la reserve es correcto
-            #if not Reserve.dateReservation.split():
-             #   return RepositoryResponse(success=False, error_message=f"No contiene fecha o va vacio")
+            if Reserve.dateReservation<= date(2023, 1, 1):
+                return RepositoryResponse(success=False, error_message=f"La fecha es incorrecta o es minima {Reserve.dateReservation}")
             
             repo_response: RepositoryResponse = ReserveRepository(dbConnection.connection).insert(Reserve)
             return repo_response
@@ -48,11 +48,17 @@ class ReserveService:
         dbConnection = DbContext().connect()
 
         if dbConnection.success:
+
+            #Validar si la reserve es correcto
+            if Reserve.dateReservation<= date(2023, 1, 1):
+                return RepositoryResponse(success=False, error_message=f"La fecha es incorrecta o es minima {Reserve.dateReservation}")
+            
             
             repo_response: RepositoryResponse = ReserveRepository(dbConnection.connection).update(idReservation, Reserve)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
+
 
     #Delete Book    
     async def deleteReserve(idReservation: int):

@@ -27,6 +27,7 @@ class EmployeeService:
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
 
+   
     #Insert Employees    
     async def insertEmployee(Employee: Employee):
         dbConnection = DbContext().connect()
@@ -36,6 +37,11 @@ class EmployeeService:
             #Validar si el autor es correcto
             if not Employee.nameEmployee.split():
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
+            
+        
+             # Validar si el numero de empleados no es vacio
+            if not Employee.employeeNumber.strip():
+                return RepositoryResponse(success=False, error_message="No se ha proporcionado un dato valido")
 
             repo_response: RepositoryResponse = EmployeeRepository(dbConnection.connection).insert(Employee)
             return repo_response
@@ -51,6 +57,10 @@ class EmployeeService:
             #Validar si el autor es correcto
             if not Employee.nameEmployee.split():
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
+            
+             # Validar si el numero de empleados no es vacio
+            if not Employee.employeeNumber.strip():
+                return RepositoryResponse(success=False, error_message="No se ha proporcionado un dato valido")
 
             repo_response: RepositoryResponse = EmployeeRepository(dbConnection.connection).update(idEmployee, Employee)
             return repo_response
