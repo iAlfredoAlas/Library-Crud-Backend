@@ -35,7 +35,8 @@ class EditorialService:
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
             if Editorial.dateAdd <= date(1700, 1, 1):
                 return RepositoryResponse(success=False, error_message=f"La fecha es incorrecta o es minima {Editorial.dateAdd}")
-
+            if Editorial.dateAdd != date('%Y,%m,%d'):
+                return RepositoryResponse(success=False, error_message=f"El formato de fecha es diferente de 'yyyy,mm,dd' ")
             repo_response: RepositoryResponse = EditorialRepository(dbConnection.connection).insert(Editorial)
             return repo_response
         else: 
@@ -51,7 +52,8 @@ class EditorialService:
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
             if Editorial.dateAdd <= date(1700, 1, 1):
                 return RepositoryResponse(success=False, error_message=f"La fecha es incorrecta o es minima {Editorial.dateAdd}")
-
+            if Editorial.dateAdd != date('%Y,%m,%d'):
+                return RepositoryResponse(success=False, error_message=f"El formato de fecha es diferente de 'yyyy,mm,dd' ")
             repo_response: RepositoryResponse = EditorialRepository(dbConnection.connection).update(idEditorial, Editorial)
             return repo_response
         else: 
