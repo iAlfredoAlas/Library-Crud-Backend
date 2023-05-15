@@ -2,6 +2,10 @@ import mysql.connector
 from models.book import Book
 from models.repositoryResponse import RepositoryResponse
 
+consulta = "SELECT IDBOOK, BOOKNAME, PUBLICATIONDATE, TOTALPAGUE, QUANTITYSTOCK BOOKCOVER, STATUSBOOK, AUTHOR.IDAUTHOR, AUTHOR.NAMEAUTHOR, EDITORIAL.IDEDITORIAL, EDITORIAL.NAMEEDITORIAL, RACK.IDRACK, RACK.NAMERACK FROM BOOKINNER JOIN AUTHOR ON BOOK.IDAUTHOR = AUTHOR.IDAUTHOR INNER JOIN EDITORIAL ON BOOK.IDAUTHOR = BOOK.IDEDITORIAL INNER JOIN RACK ON BOOK.IDRACK = BOOK.IDBOOK"
+consultaActivos = "SELECT IDBOOK, BOOKNAME, PUBLICATIONDATE, TOTALPAGUE, QUANTITYSTOCK BOOKCOVER, STATUSBOOK, AUTHOR.IDAUTHOR, AUTHOR.NAMEAUTHOR, EDITORIAL.IDEDITORIAL, EDITORIAL.NAMEEDITORIAL, RACK.IDRACK, RACK.NAMERACK FROM BOOKINNER JOIN AUTHOR ON BOOK.IDAUTHOR = AUTHOR.IDAUTHOR INNER JOIN EDITORIAL ON BOOK.IDAUTHOR = BOOK.IDEDITORIAL INNER JOIN RACK ON BOOK.IDRACK = BOOK.IDBOOK WHERE STATUSBOOK =1"
+
+
 #Class of BookRepository
 class BookRepository:
     
@@ -12,7 +16,7 @@ class BookRepository:
     def getAll(self, page: int, limit: int):
         offset = (page - 1) * limit
         cursor = self.connection.cursor()
-        cursor.execute("SELECT b.*, a.*, e.*, g.*, r.* FROM Book b LEFT JOIN Author a ON b.idAuthor = a.idAuthor LEFT JOIN Editorial e ON b.idEditorial = e.idEditorial LEFT JOIN Genre g ON b.idGenre = g.idGenre LEFT JOIN Rack r ON b.idRack = r.idRack LIMIT %s OFFSET %s", (limit, offset))
+        cursor.execute(consulta +" LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
 
@@ -62,7 +66,7 @@ class BookRepository:
     def getAllActives(self, page: int = 1, limit: int = 10):
         offset = (page - 1) * limit
         cursor = self.connection.cursor()
-        cursor.execute("SELECT b.*, a.*, e.*, g.*, r.* FROM Book b LEFT JOIN Author a ON b.idAuthor = a.idAuthor LEFT JOIN Editorial e ON b.idEditorial = e.idEditorial LEFT JOIN Genre g ON b.idGenre = g.idGenre LEFT JOIN Rack r ON b.idRack = r.idRack where statusBook = 1 LIMIT %s OFFSET %s", (limit, offset))
+        cursor.execute(consultaActivos + "LIMIT %s OFFSET %s", (limit, offset))
 
         rows = cursor.fetchall()
 
