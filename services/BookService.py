@@ -37,23 +37,8 @@ class BookService:
             #Validar si el book es correcto
             if not Book.bookName.split():
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
-            
-              # Validar si la fecha de publicacion no este vacia 
-            if Book.publicationDate <= date(1700, 1, 1):
-                return RepositoryResponse(success=False, error_message=f"La fecha es incorrecta o es minima {Book.publicationDate}")
-            
-             # Validar si la totalPague  no es vacio
-            if not Book.totalPague.strip():
-                return RepositoryResponse(success=False, error_message="No se ha proporcionado un valor válido")
-            
-             # Validar si la cantidad de inventario  no es vacio
-            if not Book.quantityStock.strip():
-                return RepositoryResponse(success=False, error_message="No se ha proporcionado un valor válido")
-            
-             # Validar si la bookcover no es vacio
-            if not Book.bookCover.strip():
-                return RepositoryResponse(success=False, error_message="No se ha proporcionado un dato válido")
-            
+            if Book.publicationDate != date('%Y,%m,%d'):
+                return RepositoryResponse(success=False, error_message=f"El formato de fecha es diferente de 'yyyy,mm,dd' ")
             repo_response: RepositoryResponse = BookRepository(dbConnection.connection).insert(Book)
             return repo_response
         else: 
@@ -68,29 +53,13 @@ class BookService:
             #Validar si el book es correcto
             if not Book.bookName.split():
                 return RepositoryResponse(success=False, error_message=f"No contiene nombre o va vacio")
-            
-             # Validar si la fecha de publicacion no este vacia 
-            if Book.publicationDate <= date(1700, 1, 1):
-                return RepositoryResponse(success=False, error_message=f"La fecha es incorrecta o es minima {Book.publicationDate}")
-            
-             # Validar si la totalPague  no es vacio
-            if not Book.totalPague.strip():
-                return RepositoryResponse(success=False, error_message="No se ha proporcionado un valor válido")
-            
-             # Validar si la cantidad de inventario  no es vacio
-            if not Book.quantityStock.strip():
-                return RepositoryResponse(success=False, error_message="No se ha proporcionado un valor válido")
-            
-            
-             # Validar si la bookcover no es vacio
-            if not Book.bookCover.strip():
-                return RepositoryResponse(success=False, error_message="No se ha proporcionado un dato válido")
-            
-            
+            if Book.publicationDate != date('%Y,%m,%d'):
+                return RepositoryResponse(success=False, error_message=f"El formato de fecha es diferente de 'yyyy,mm,dd' ")
             repo_response: RepositoryResponse = BookRepository(dbConnection.connection).update(idBook, Book)
             return repo_response
         else: 
             return RepositoryResponse(success=False, error_message=f"Failed to connect: {dbConnection.error_message}")
+
     #Delete Book    
     async def deleteBook(idBook: int):
         dbConnection = DbContext().connect()
