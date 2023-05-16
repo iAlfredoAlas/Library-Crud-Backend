@@ -184,10 +184,10 @@ class BookRepository:
                 return RepositoryResponse(success=False, error_message="A book with this name already exists")
 
             # Actualizar el book
-            cursor.execute("UPDATE Book SET bookName = %s, publicationDate = %s, totalPague = %s, quantityStock = %s, bookCover = %s, statusBook = %s, idAuthor = %s, idEditorial = %s, idGenre = %s, idRack = %s WHERE idBook = %s", (book.bookName, book.publicationDate, book.totalPague, book.quantityStock, book.bookCover, book.statusBook, book.idAuthor, book.idEditorial, book.idGenre, book.idRack, book.idBook))
+            cursor.execute("UPDATE Book SET bookName = %s, publicationDate = %s, totalPague = %s, quantityStock = %s, bookCover = %s, statusBook = %s, idAuthor = %s, idEditorial = %s, idGenre = %s, idRack = %s WHERE idBook = %s", (book.bookName, book.publicationDate, book.totalPague, book.quantityStock, book.bookCover, book.statusBook, book.idAuthor, book.idEditorial, book.idGenre, book.idRack, idBook))
             self.connection.commit()
             if cursor.rowcount == 0:
-                return RepositoryResponse(success=False, error_message="Book didn't change or book with id %s not found" % book.idBook)
+                return RepositoryResponse(success=False, error_message="Book didn't change or book with id %s not found" % idBook)
             else:
                 return RepositoryResponse(success=True)
         except mysql.connector.Error as error:
