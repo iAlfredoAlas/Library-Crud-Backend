@@ -167,7 +167,7 @@ class BookRepository:
             return RepositoryResponse(success=False, error_message="Book already exists")
         else:
             try:
-                cursor.execute("INSERT INTO Book (idBook, bookName, publicationDate, totalPague, quantityStock, bookCover, statusBook, idAuthor, idEditorial, idGenre, idRack) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (book.idBook, book.bookName, book.publicationDate, book.totalPague, book.quantityStock, book.bookCover, book.statusBook, book.idAuthor, book.idEditorial, book.idGenre, book.idRack))
+                cursor.execute("INSERT INTO Book (bookName, publicationDate, totalPague, quantityStock, bookCover, statusBook, idAuthor, idEditorial, idGenre, idRack) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (book.bookName, book.publicationDate, book.totalPague, book.quantityStock, book.bookCover, book.statusBook, book.idAuthor, book.idEditorial, book.idGenre, book.idRack))
                 self.connection.commit()
                 return RepositoryResponse(success=True)
             except mysql.connector.Error as error:
