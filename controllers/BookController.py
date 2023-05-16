@@ -38,7 +38,7 @@ async def postBook(Book: Book):
     BookResult:RepositoryResponse = await BookService.insertBook(Book)
     
     if BookResult.success:
-        return JSONResponse(f"Book {Book.nameBook} successfully added")
+        return JSONResponse(f"Book {Book.bookName} successfully added")
     else:
         return JSONResponse(BookResult.error_message, status_code=400)
 
@@ -48,7 +48,7 @@ async def putBook(idBook: int, Book: Book):
     BookResult:RepositoryResponse = await BookService.updateBook(idBook, Book)
     
     if BookResult.success:
-        return JSONResponse(f"Book {Book.nameBook} successfully edited")
+        return JSONResponse(f"Book {Book.bookName} successfully edited")
     else:
         return JSONResponse(BookResult.error_message, status_code=400)
 
