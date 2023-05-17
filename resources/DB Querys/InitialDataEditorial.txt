@@ -1,6 +1,6 @@
 use librarydb;
 
-INSERT INTO editorial (nameEditorial, dateAdd, statusEditorial) 
+INSERT INTO Editorial (nameEditorial, dateAdd, statusEditorial) 
 VALUES 
 ("Editorial 1", "2000-01-01", 1), 
 ("Editorial 2", "2000-01-01", 1), 

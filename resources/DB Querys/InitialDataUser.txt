@@ -35,11 +35,3 @@ VALUES
 ("Andrea Álvarez", "AA050191", "andrea.alvarez@example.com", "7934-3456", 1),
 ("Carlos Cárdenas", "CC031276", "carlos.cardenas@example.com", "7301-7890", 1),
 ("Sara Saldarriaga", "SS050368", "sara.saldarriaga@example.com", "7801-5678", 1);
-('Giselle Argueta', 'AP100321', 'giselle.argueta@example.com', '7731-1234', 1);
-('Samantha Elias', 'EA100320', 'samantha.elias@example.com', '7731-2345', 1);
-('Caleb Hernandez', 'HR100621', 'caleb.hernandez@example.com', '7731-3456', 1);
-('Jason Martinez', 'MO100421', 'jason.martinez@example.com', '7731-4567', 1);
-('Guillermo Minero', 'MA101321', 'guillermo.minero@example.com', '7731-5678', 1);
-('Oscar Minero', 'MF100712', 'oscar.minero@example.com', '7731-6789', 1);
-('Christian Pena', 'PV100521', 'christian.pena@example.com', '7731-7890', 1);
-('Claudia Ramirez', 'RM102021', 'claudia.ramirez@example.com', '7731-8901', 1);
