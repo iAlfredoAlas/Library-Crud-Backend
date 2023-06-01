@@ -29,6 +29,6 @@ class DbContext:
     
     def setDefaultContext(self):
         self.host = 'sql9.freesqldatabase.com'
-        self.user = 'sql9617075'
-        self.password = 'GxIVuTtakE'
-        self.database = 'sql9617075'
+        self.user = 'sql9623058'
+        self.password = 'Xr33Ht11pW'
+        self.database = 'sql9623058'
