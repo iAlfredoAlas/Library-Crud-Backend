@@ -7,13 +7,13 @@ from os import getenv
 import json
 
 
-def expire_date(days: int):
+def expire_date(minutes: int):
     date = datetime.now()
-    new_date = date+timedelta(days)
+    new_date = date+timedelta(minutes)
     return new_date
 
 def write_token(data:dict):
-    token = encode(payload={**data, "exp":expire_date(1)},key=getenv("SECRET"), algorithm="HS256")
+    token = encode(payload={**data, "exp":expire_date(15)},key=getenv("SECRET"), algorithm="HS256")
     return token
 
 def validate_token(token, output = False):
