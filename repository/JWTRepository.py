@@ -3,17 +3,19 @@ from models.repositoryResponse import RepositoryResponse
 
 from jwt import encode, decode, exceptions
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
 from os import getenv
 import json
 
 
 def expire_date(minutes: int):
     date = datetime.now()
-    new_date = date+timedelta(minutes)
+    new_date = date+timedelta(minutes=minutes)
     return new_date
 
 def write_token(data:dict):
-    token = encode(payload={**data, "exp":expire_date(15)},key=getenv("SECRET"), algorithm="HS256")
+    token_expiration = int(getenv("TOKEN_EXPIRATION"))
+    token = encode(payload={**data, "exp":expire_date(token_expiration)},key=getenv("SECRET"), algorithm="HS256")
     return token
 
 def validate_token(token, output = False):
